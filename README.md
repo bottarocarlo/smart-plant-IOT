@@ -4,7 +4,7 @@
 ### ambiente
 ☁️Humidity
 🌡️Temperature
-💡Luminosity
+💡Brightness
 
 ### terreno
 ☁️Soil moisture
