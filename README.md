@@ -1,13 +1,16 @@
 # smart-plant-IOT🪴
 
+# sensori
+## ambiente
+☁️Humidity
+🌡️Temperature
+💡Luminosity
 
-Hum temp amb
+## terreno
+☁️Soil moisture
 
-Luminosità amb
-
-
-Pump HUM
-Hum terr
+# attuatori
+💦Water Pump
 
 
 Telegram API + Twitter
