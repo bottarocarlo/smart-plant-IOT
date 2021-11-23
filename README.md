@@ -2,12 +2,15 @@
 
 ## sensori
 ### ambiente
-☁️Humidity
-🌡️Temperature
-💡Brightness
+☁️Humidity (DHT11)
+🌡️Temperature (DHT11)
+💡Brightness (photoresistor?)
 
 ### terreno
 ☁️Soil moisture
+
+### service 🛠️
+🌊 Water level (HOYA?)
 
 ## attuatori
 💦Water Pump
