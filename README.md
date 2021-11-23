@@ -1,15 +1,15 @@
 # smart-plant-IOT🪴
 
-# sensori
-## ambiente
+## sensori
+### ambiente
 ☁️Humidity
 🌡️Temperature
 💡Luminosity
 
-## terreno
+### terreno
 ☁️Soil moisture
 
-# attuatori
+## attuatori
 💦Water Pump
 
 
