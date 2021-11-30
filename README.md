@@ -2,9 +2,9 @@
 
 ## sensori
 ### ambiente
-//☁️Humidity (DHT11)
-🌡️Temperature (Thermistor-->improve code (wrong value??))
-💡Brightness (photoresistor?)
+☁️Humidity (DHT11)<br />
+🌡️Temperature <br />
+💡Brightness (photoresistor?)<br />
 
 ### terreno
 ☁️Soil moisture
