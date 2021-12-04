@@ -20,7 +20,7 @@ float Photoresistor::getLux()
   digitalWrite(_pin, LOW);
   for (int i = 0; i < 100; i++) {
     double Lux = conversion(analogRead(A0));
-    Serial.println(Lux);
+    //Serial.println(Lux);
     return Lux;
   }
   digitalWrite(_pin, HIGH);

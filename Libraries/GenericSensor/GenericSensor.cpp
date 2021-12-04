@@ -12,7 +12,7 @@ float GenericSensor::getValue()
   digitalWrite(_pin, LOW);
   for (int i = 0; i < 100; i++) {
     float value = analogRead(A0);
-    Serial.println(value);
+    //Serial.println(value);
     return value;
   }
   digitalWrite(_pin, HIGH);
