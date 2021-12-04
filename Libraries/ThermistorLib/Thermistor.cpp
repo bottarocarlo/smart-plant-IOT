@@ -16,12 +16,13 @@ double Thermistor::conversion(int value)
   return Temp;  
 }
 
-void Thermistor::getTemp()
+float Thermistor::getTemp()
 {
   digitalWrite(_pin, LOW);
   for (int i = 0; i < 100; i++) {
     double Temperature = conversion(analogRead(A0));
     Serial.println(Temperature);
+    return Temperature;
   }
   digitalWrite(_pin, HIGH);
   delay(10000);

@@ -15,12 +15,13 @@ int lux=500/(resistence/1000);
 return lux; 
 }
 
-void Photoresistor::getLux()
+float Photoresistor::getLux()
 {
   digitalWrite(_pin, LOW);
   for (int i = 0; i < 100; i++) {
     double Lux = conversion(analogRead(A0));
     Serial.println(Lux);
+    return Lux;
   }
   digitalWrite(_pin, HIGH);
   delay(10000);

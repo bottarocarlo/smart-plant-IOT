@@ -8,7 +8,7 @@ class Photoresistor
   public:
     Photoresistor(int pin);
     double conversion(int value);
-    void getLux();
+    float getLux();
   private:
     int _pin;
 };

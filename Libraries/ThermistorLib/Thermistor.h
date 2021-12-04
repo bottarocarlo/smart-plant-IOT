@@ -14,7 +14,7 @@ class Thermistor
   public:
     Thermistor(int pin);
     double conversion(int value);
-    void getTemp();
+    float getTemp();
   private:
     int _pin;
 };
