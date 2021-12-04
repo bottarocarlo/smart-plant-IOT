@@ -2,14 +2,14 @@
 
 ## sensori
 ### ambiente
-🌡️Temperature (thermistor) <br />
-💡Brightness (photoresistor)<br />
+🌡️Temperature (thermistor) ---- libreria dedicata <br /> 
+💡Brightness (photoresistor) ---- libreria dedicata<br />
 
 ### terreno
-☁️Soil moisture
+☁️Soil moisture ---- libreria generale
 
 ### service 🛠️
-🌊 Water level
+🌊 Water level ---- libreria generale
 
 ## attuatori
 💦Water Pump
