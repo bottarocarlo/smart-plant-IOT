@@ -9,8 +9,8 @@
 
 
 // Replace with your network credentials
-const char* ssid = "OnePlus 9";
-const char* password = "carlogay";
+const char* ssid = "iPhone di Carlo";
+const char* password = "carletto2";
 
 // Initialize Telegram BOT
 #define BOTtoken "2142355090:AAGgN6cov95TfNgBSPHevaTcp2sR6L6VxcM"  // replace this with your bot token
@@ -33,7 +33,7 @@ bool ledState = LOW;
 
 // Handle what happens when you receive new messages
 void handleNewMessages(int numNewMessages) {
-  Serial.println("Handling New Message");
+  Serial.println("New Message");
   Serial.println(String(numNewMessages));
 
   for (int i=0; i<numNewMessages; i++) {
@@ -74,7 +74,7 @@ void handleNewMessages(int numNewMessages) {
       digitalWrite(ledPin, ledState);
     }
     
-    if (user_text == "/get_state") {
+    if (user_text == "/get") {
       if (digitalRead(ledPin)){
         bot.sendMessage(chat_id, "LED is ON", "");
       }
@@ -82,6 +82,23 @@ void handleNewMessages(int numNewMessages) {
         bot.sendMessage(chat_id, "LED is OFF", "");
       }
     }
+
+    if (user_text == "/automatic") {
+      bot.sendMessage(chat_id, "Mode set to AUTOMATIC", "");
+    }
+    if (user_text == "/manual") {
+      bot.sendMessage(chat_id, "Mode set to MANUAL", "");
+    }
+    if (user_text == "/timer") {
+      bot.sendMessage(chat_id, "Mode set to TIMER", "");
+    }
+    if (user_text == "/get_mode") {
+      bot.sendMessage(chat_id, "Working on it..", "");
+    }
+    if (user_text == "/get_state") {
+      bot.sendMessage(chat_id, "Working on it..", "");
+    }
+       
   }
 }
 
