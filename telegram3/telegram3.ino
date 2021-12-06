@@ -30,6 +30,12 @@ unsigned long lastTimeBotRan;
 
 const int ledPin = D2;
 bool ledState = LOW;
+int mode = NULL;
+/*
+*0-manual 
+*1-automatic
+*2-timer
+*/
 
 // Handle what happens when you receive new messages
 void handleNewMessages(int numNewMessages) {
@@ -83,17 +89,30 @@ void handleNewMessages(int numNewMessages) {
       }
     }
 
-    if (user_text == "/automatic") {
-      bot.sendMessage(chat_id, "Mode set to AUTOMATIC", "");
-    }
+    
     if (user_text == "/manual") {
-      bot.sendMessage(chat_id, "Mode set to MANUAL", "");
+      bot.sendMessage(chat_id, "Mode is now set to MANUAL", "");
+      mode =0;
+    }
+    if (user_text == "/automatic") {
+      bot.sendMessage(chat_id, "Mode is now set to AUTOMATIC", "");
+      mode =1;
     }
     if (user_text == "/timer") {
-      bot.sendMessage(chat_id, "Mode set to TIMER", "");
+      bot.sendMessage(chat_id, "Mode is now set to TIMER", "");
+      mode =2;
     }
     if (user_text == "/get_mode") {
-      bot.sendMessage(chat_id, "Working on it..", "");
+      if(mode==0){
+        bot.sendMessage(chat_id, "Mode set to MANUAL", "");
+      }else if(mode==1){
+        bot.sendMessage(chat_id, "Mode set to AUTOMATIC", "");
+      }else if(mode==2){
+        bot.sendMessage(chat_id, "Mode set to TIMER", "");
+      }else{
+        bot.sendMessage(chat_id, "Mode not set yet, Error 001", "");
+      }
+      
     }
     if (user_text == "/get_state") {
       bot.sendMessage(chat_id, "Working on it..", "");
