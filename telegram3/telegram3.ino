@@ -32,12 +32,21 @@ unsigned long lastTimeBotRan;
 
 const int ledPin = D2;
 bool ledState = LOW;
+
+const int pump = D0;
+
 int mode = NULL;
 /*
 *0-manual 
 *1-automatic
 *2-timer
 */
+
+void water(){
+  digitalWrite(pump, HIGH);
+  delay(5000);
+  digitalWrite(pump, LOW);
+}
 
 // Handle what happens when you receive new messages
 void handleNewMessages(int numNewMessages) {
@@ -112,6 +121,7 @@ void handleNewMessages(int numNewMessages) {
       bot.sendMessage(chat_id, "Working on it..", "");
     }
     if (user_text == "/water"  && mode==0) {
+      water();
       bot.sendMessage(chat_id, "I'll give your plant some water", "");
     }else if(user_text == "/water"  && mode!=0){
       bot.sendMessage(chat_id, "Error try to change mode to MANUAL to give water!","");
@@ -128,8 +138,11 @@ void setup() {
     client.setTrustAnchors(&cert); // Add root certificate for api.telegram.org
   #endif
 
+  //dichiarazione GPIO
   pinMode(ledPin, OUTPUT);
+  pinMode(pump, OUTPUT);
   digitalWrite(ledPin, ledState);
+  digitalWrite(pump, LOW);
   
   // Connect to Wi-Fi
   WiFi.mode(WIFI_STA);
