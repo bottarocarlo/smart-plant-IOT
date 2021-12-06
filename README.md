@@ -35,3 +35,9 @@ GPIO9: Pin is HIGH at Boot. <br />
 GPIO10: Pin is HIGH at Boot. <br />
 GPIO15: LOW, Boot failure if Pulled HIGH <br/>
 GPIO16: HIGH during Boot and Falls to ~1Volt. <br/>
+
+## Linux
+to run on usb port run firstly <br/>
+sudo chmod a+rw /dev/ttyUSB0 <br/>
+don know why
+
