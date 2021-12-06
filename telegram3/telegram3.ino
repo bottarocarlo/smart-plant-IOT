@@ -52,10 +52,13 @@ void handleNewMessages(int numNewMessages) {
 
     if (user_text == "/start") {
       String welcome = "Welcome, " + your_name + ".\n";
-      welcome += "Use the following commands to control your outputs.\n\n";
-      welcome += "Send /led2_on to turn GPIO2 ON \n";
-      welcome += "Send /led2_off to turn GPIO2 OFF \n";
-      welcome += "Send /get_state to request current GPIO state \n";
+      welcome += "Use the following commands to control your plants!🪴🪴\n";
+      welcome += "You can now choose how to water your plant \n";
+      welcome += "Send /automatic to turn GPIO2 OFF \n";
+      welcome += "Send /manual to request current GPIO state \n";
+      welcome += "Send /timer to request current GPIO state \n";
+      welcome += "Send /get_state to request current state \n";
+      welcome += "Send /mode to request current mode \n";
       bot.sendMessage(chat_id, welcome, "");
     }
 
