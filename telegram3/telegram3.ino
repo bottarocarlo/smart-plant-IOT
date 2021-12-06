@@ -6,7 +6,9 @@
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>   
 #include <ArduinoJson.h>
+#include <arduino-timer.h>
 
+auto timer = timer_create_default(); // create a timer with default settings
 
 // Replace with your network credentials
 const char* ssid = "iPhone di Carlo";
@@ -68,18 +70,7 @@ void handleNewMessages(int numNewMessages) {
       bot.sendMessage(chat_id, welcome, "");
     }
 
-    if (user_text == "/led2_on") {
-      bot.sendMessage(chat_id, "LED state set to ON", "");
-      ledState = HIGH;
-      digitalWrite(ledPin, ledState);
-    }
-    
-    if (user_text == "/led2_off") {
-      bot.sendMessage(chat_id, "LED state is set to OFF", "");
-      ledState = LOW;
-      digitalWrite(ledPin, ledState);
-    }
-    
+   
     if (user_text == "/get") {
       if (digitalRead(ledPin)){
         bot.sendMessage(chat_id, "LED is ON", "");
@@ -91,7 +82,10 @@ void handleNewMessages(int numNewMessages) {
 
     
     if (user_text == "/manual") {
-      bot.sendMessage(chat_id, "Mode is now set to MANUAL", "");
+      String welcome = "Mode is now set to MANUAL\n";
+      welcome += "Use the command /water to control your plant!🪴🪴\n";
+      bot.sendMessage(chat_id, welcome, "");
+      
       mode =0;
     }
     if (user_text == "/automatic") {
@@ -116,6 +110,11 @@ void handleNewMessages(int numNewMessages) {
     }
     if (user_text == "/get_state") {
       bot.sendMessage(chat_id, "Working on it..", "");
+    }
+    if (user_text == "/water"  && mode==0) {
+      bot.sendMessage(chat_id, "I'll give your plant some water", "");
+    }else if(user_text == "/water"  && mode!=0){
+      bot.sendMessage(chat_id, "Error try to change mode to MANUAL to give water!","");
     }
        
   }
@@ -146,6 +145,8 @@ void setup() {
   Serial.println(WiFi.localIP());
 }
 
+
+
 void loop() {
   if (millis() > lastTimeBotRan + bot_delay)  {
     int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
@@ -157,4 +158,18 @@ void loop() {
     }
     lastTimeBotRan = millis();
   }
+  switch(mode){
+    case 1:
+    //MANUAL
+    Serial.println("MANUAL!");
+    break;
+    case 2:
+    //TIMER
+    Serial.println("TIMER!");
+    break;
+    default:
+    break;
+  }
+
+  
 }
