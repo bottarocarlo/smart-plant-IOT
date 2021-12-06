@@ -1,5 +1,6 @@
 # smart-plant-IOT🪴
 
+
 ## sensori
 ### ambiente
 🌡️Temperature (thermistor) ---- libreria dedicata <br /> 
@@ -22,6 +23,7 @@ Telegram API + Twitter + Web Server
 Led errori
 
 
+![Alt text](circuito.jpg?raw=true "Title")
 
 
 
