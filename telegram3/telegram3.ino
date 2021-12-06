@@ -54,11 +54,11 @@ void handleNewMessages(int numNewMessages) {
       String welcome = "Welcome, " + your_name + ".\n";
       welcome += "Use the following commands to control your plants!🪴🪴\n";
       welcome += "You can now choose how to water your plant \n";
-      welcome += "Send /automatic to turn GPIO2 OFF \n";
-      welcome += "Send /manual to request current GPIO state \n";
-      welcome += "Send /timer to request current GPIO state \n";
+      welcome += "Send /automatic to water in autonomous way your plant \n";
+      welcome += "Send /manual to manual water your plant when you want\n";
+      welcome += "Send /timer to water your plant every xx minutes \n";
       welcome += "Send /get_state to request current state \n";
-      welcome += "Send /mode to request current mode \n";
+      welcome += "Send /get_mode to request current mode \n";
       bot.sendMessage(chat_id, welcome, "");
     }
 
