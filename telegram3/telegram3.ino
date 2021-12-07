@@ -6,18 +6,7 @@
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>   
 #include <ArduinoJson.h>
-#include <arduino-timer.h>
-
-auto timer = timer_create_default(); // create a timer with default settings
-
-// Replace with your network credentials
-const char* ssid = "iPhone di Carlo";
-const char* password = "carletto2";
-
-// Initialize Telegram BOT
-#define BOTtoken "2142355090:AAGgN6cov95TfNgBSPHevaTcp2sR6L6VxcM"  // replace this with your bot token
-
-#define CHAT_ID "189749700"  //replace with your telegram user ID
+#include "config.h"
 
 #ifdef ESP8266
   X509List cert(TELEGRAM_CERTIFICATE_ROOT);
@@ -30,12 +19,7 @@ UniversalTelegramBot bot(BOTtoken, client);
 int bot_delay = 1000;
 unsigned long lastTimeBotRan;
 
-const int ledPin = D2;
-bool ledState = LOW;
-
-const int pump = D0;
-
-int mode = NULL;
+int mode = 0;
 /*
 *0-manual 
 *1-automatic
@@ -48,11 +32,31 @@ void water(){
   digitalWrite(pump, LOW);
 }
 
+void setupOutput(){
+  //dichiarazione GPIO
+  pinMode(ledPin, OUTPUT);
+  pinMode(pump, OUTPUT);
+  digitalWrite(ledPin, ledState);
+  digitalWrite(pump, LOW);
+}
+
+void setupWiFi(){
+  // Connect to Wi-Fi
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  #ifdef ESP32
+    client.setCACert(TELEGRAM_CERTIFICATE_ROOT); // Add root certificate for api.telegram.org
+  #endif
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting to WiFi..");
+  }
+  // Print ESP32 Local IP Address
+  Serial.println(WiFi.localIP());
+}
+
 // Handle what happens when you receive new messages
 void handleNewMessages(int numNewMessages) {
-  Serial.println("New Message");
-  Serial.println(String(numNewMessages));
-
   for (int i=0; i<numNewMessages; i++) {
     // Chat id of the requester
     String chat_id = String(bot.messages[i].chat_id);
@@ -78,18 +82,7 @@ void handleNewMessages(int numNewMessages) {
       welcome += "Send /get_mode to request current mode \n";
       bot.sendMessage(chat_id, welcome, "");
     }
-
-   
-    if (user_text == "/get") {
-      if (digitalRead(ledPin)){
-        bot.sendMessage(chat_id, "LED is ON", "");
-      }
-      else{
-        bot.sendMessage(chat_id, "LED is OFF", "");
-      }
-    }
-
-    
+    //MANUAL mode=0
     if (user_text == "/manual") {
       String welcome = "Mode is now set to MANUAL\n";
       welcome += "Use the command /water to control your plant!🪴🪴\n";
@@ -97,14 +90,18 @@ void handleNewMessages(int numNewMessages) {
       
       mode =0;
     }
+    //AUTOMATIC mode=1
     if (user_text == "/automatic") {
       bot.sendMessage(chat_id, "Mode is now set to AUTOMATIC", "");
       mode =1;
     }
+    //TIMER mode=2
     if (user_text == "/timer") {
       bot.sendMessage(chat_id, "Mode is now set to TIMER", "");
+      
       mode =2;
     }
+    //GET_MODE
     if (user_text == "/get_mode") {
       if(mode==0){
         bot.sendMessage(chat_id, "Mode set to MANUAL", "");
@@ -117,9 +114,11 @@ void handleNewMessages(int numNewMessages) {
       }
       
     }
+    //GET_STATE
     if (user_text == "/get_state") {
       bot.sendMessage(chat_id, "Working on it..", "");
     }
+    //WATER
     if (user_text == "/water"  && mode==0) {
       water();
       bot.sendMessage(chat_id, "I'll give your plant some water", "");
@@ -138,24 +137,9 @@ void setup() {
     client.setTrustAnchors(&cert); // Add root certificate for api.telegram.org
   #endif
 
-  //dichiarazione GPIO
-  pinMode(ledPin, OUTPUT);
-  pinMode(pump, OUTPUT);
-  digitalWrite(ledPin, ledState);
-  digitalWrite(pump, LOW);
-  
-  // Connect to Wi-Fi
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  #ifdef ESP32
-    client.setCACert(TELEGRAM_CERTIFICATE_ROOT); // Add root certificate for api.telegram.org
-  #endif
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to WiFi..");
-  }
-  // Print ESP32 Local IP Address
-  Serial.println(WiFi.localIP());
+
+  setupOutput();
+  setupWiFi();
 }
 
 
@@ -173,12 +157,13 @@ void loop() {
   }
   switch(mode){
     case 1:
-    //MANUAL
-    Serial.println("MANUAL!");
+      //MANUAL
+      Serial.println("MANUAL!");
     break;
     case 2:
-    //TIMER
-    Serial.println("TIMER!");
+      //TIMER
+      Serial.println("TIMER!");
+      
     break;
     default:
     break;
