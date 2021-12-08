@@ -38,6 +38,8 @@ GPIO10: Pin is HIGH at Boot. <br />
 GPIO15: LOW, Boot failure if Pulled HIGH <br/>
 GPIO16: HIGH during Boot and Falls to ~1Volt. <br/>
 
+GPIO2 (D4 pin) if connected make the flash fail
+
 ## Linux
 to run on usb port run firstly <br/>
 sudo chmod a+rw /dev/ttyUSB0 <br/>
