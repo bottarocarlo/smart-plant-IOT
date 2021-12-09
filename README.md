@@ -43,5 +43,10 @@ GPIO2 (D4 pin) if connected make the flash fail
 ## Linux
 to run on usb port run firstly <br/>
 sudo chmod a+rw /dev/ttyUSB0 <br/>
-don know why
+don know why <br/>
+add to preferences: https://arduino.esp8266.com/stable/package_esp8266com_index.json <br/>
+add board libreries ESP8266 <br/>
+add file .zip https://github.com/witnessmenow/Universal-Arduino-Telegram-Bot <br/>
+install from library manager arduinoJson, and select your board from tool > board <br/>
+
 
