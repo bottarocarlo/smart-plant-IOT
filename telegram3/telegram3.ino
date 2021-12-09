@@ -28,7 +28,7 @@ int mode = 0;
 
 void water(){
   digitalWrite(pump, HIGH);
-  delay(5000);
+  delay(2000);
   digitalWrite(pump, LOW);
 }
 
