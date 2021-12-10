@@ -15,16 +15,6 @@
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 
-// Checks for new messages every 1 second.
-int bot_delay = 1000;
-unsigned long lastTimeBotRan;
-
-int mode = 0;
-/*
-*0-manual 
-*1-automatic
-*2-timer
-*/
 
 void water(){
   digitalWrite(pump, HIGH);
