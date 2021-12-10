@@ -26,7 +26,8 @@ Serial.println("---");
 Serial.print(" SOILHUM: ");
 Serial.print(soilHum);
 Serial.println("---");*/
-str =String("Sensor --> ")+String("TEMP= ")+String(temp)+String("LUX= ")+String(lux)+String("WATER= ")+String(water)+String("SOILHUM= ")+String(soilHum);
+//TEMP--LUX--WATER--SOILHUM 
+str =String("_")+String(temp)+String("_")+String(lux)+String("_")+String(water)+String("_")+String(soilHum);
 espSerial.println(str);
 delay(1000);
 }
