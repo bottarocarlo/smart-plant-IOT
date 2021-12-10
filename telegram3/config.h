@@ -14,4 +14,17 @@ const int ledPin = D2;
 bool ledState = LOW;
 const int pump = LED_BUILTIN;
 
+const int NUMSENS = 4;
+String sensValue[NUMSENS];
+/*
+ * sensValue[0]==Thermoresistor
+ * sensValue[1]==Photoresistor
+ * sensValue[2]==Waterlevel
+ * sensValue[3]==SoilHumidity
+ */
+int sensPos = 0; //Posizione nell'array
+String data;
+String valori;
+
+
 #endif

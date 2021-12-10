@@ -116,7 +116,26 @@ void handleNewMessages(int numNewMessages) {
     }
     //GET_STATE
     if (user_text == "/get_state") {
-      bot.sendMessage(chat_id, "Working on it..", "");
+      //bot.sendMessage(chat_id, "Working on it..", "");
+
+        if (Serial.available()) {
+          valori = String(Serial.read());
+          Serial.println(valori);
+        }
+      
+        char str_array[valori.length()];
+        valori.toCharArray(str_array, valori.length());
+      
+        data = strtok(str_array, "_");
+        while (data != NULL)
+        {
+          //printf("%s\n", data);
+          sensValue[sensPos] = data;
+          sensPos++;
+          data = strtok(NULL, "_");
+        }
+
+      
     }
     //WATER
     if (user_text == "/water"  && mode==0) {
