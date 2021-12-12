@@ -3,14 +3,14 @@
 
 ## sensori
 ### ambiente
-🌡️Temperature (thermistor) ---- libreria dedicata <br /> 
-💡Brightness (photoresistor) ---- libreria dedicata<br />
+🌡️Temperature (thermistor) A0, TX/RX --> TX/RX<br /> 
+💡Brightness (photoresistor) A1, TX/RX --> 8/D7<br />
 
 ### terreno
-☁️Soil moisture ---- libreria generale
+☁️Soil moisture A3, TX/RX --> 5/D4
 
 ### service 🛠️
-🌊 Water level ---- libreria generale
+🌊 Water level A2, TX/RX --> 3/D2
 
 ## attuatori
 💦Water Pump
