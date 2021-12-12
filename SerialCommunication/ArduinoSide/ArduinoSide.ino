@@ -72,8 +72,21 @@
 
 //float val = 1.234;
 
+
+ 
+ 
+#include "SoftwareSerial.h"
+
+SoftwareSerial Lux(7,8); // rx , tx
+SoftwareSerial Water(2,3) ; // rx , tx 
+SoftwareSerial SoilHum(4,5); // rx , tx
+
+
 void setup() {
   Serial.begin(115200);
+  Lux.begin(115200);
+  Water.begin(115200);
+  SoilHum.begin(115200);
 }
 
 void loop() {
@@ -85,13 +98,13 @@ void loop() {
   Serial.write((byte*)&temp, 4);
   delay(3000);
   float lux = analogRead(A1); //Photoresistor
-  Serial.write((byte*)&lux, 4);
+  Lux.write((byte*)&lux, 4);
   delay(3000);
   float water = analogRead(A2); //WaterLevel
-  Serial.write((byte*)&water, 4);
+  Water.write((byte*)&water, 4);
   delay(3000);
   float soilHum = analogRead(A3); // SoilHum
-  Serial.write((byte*)&soilHum, 4);
+  SoilHum.write((byte*)&soilHum, 4);
   delay(3000);
 
 }
