@@ -37,7 +37,10 @@ String valori;
 int bot_delay = 1000;
 unsigned long lastTimeBotRan;
 
-
+//SERIAL
+SoftwareSerial Lux(D7, D8); // rx , tx
+SoftwareSerial Water(D2, D3) ; // rx , tx
+SoftwareSerial SoilHum(D4, D5); // rx , tx
 
 
 
