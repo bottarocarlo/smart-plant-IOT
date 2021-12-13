@@ -24,10 +24,10 @@ const int pump = LED_BUILTIN;
 const int NUMSENS = 4;
 String sensValue[NUMSENS];
 /*
- * sensValue[0]==Thermoresistor
- * sensValue[1]==Photoresistor
- * sensValue[2]==Waterlevel
- * sensValue[3]==SoilHumidity
+ * sensValue[0]==Photoresistor
+ * sensValue[1]==Waterlevel
+ * sensValue[2]==SoilHumidity
+ * sensValue[3]==Thermoresistor
  */
 int sensPos = 0; //Posizione nell'array
 String data;

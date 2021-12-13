@@ -118,6 +118,8 @@ void handleNewMessages(int numNewMessages) {
         if (bp - buf < 3) bp++;
       }
       float received = * (float*)buf;
+      sensValue[3]= received;
+      bot.sendMessage(chat_id, "Temp: " + sensValue[3], "");
       //Serial.print("TEMP --> ");
       //Serial.println(received, 3); // printing the result to the serial monitor
       
@@ -133,6 +135,8 @@ void handleNewMessages(int numNewMessages) {
         if (bp - buf < 3) bp++;
       }
       float received = * (float*)buf;
+      sensValue[0]= received;
+      bot.sendMessage(chat_id, "Lum: " + sensValue[0], "");
       //Serial.print("LUX --> ");
       //Serial.println(received, 3); // printing the result to the serial monitor
       
@@ -148,6 +152,8 @@ void handleNewMessages(int numNewMessages) {
         if (bp - buf < 3) bp++;
       }
       float received = * (float*)buf;
+      sensValue[1]= received;
+      bot.sendMessage(chat_id, "Water: " + sensValue[1], "");
       //Serial.print("WATER --> ");
       //Serial.println(received, 3); // printing the result to the serial monitor
       
@@ -163,6 +169,8 @@ void handleNewMessages(int numNewMessages) {
           if (bp - buf < 3) bp++;
         }
         float received = * (float*)buf;
+        sensValue[2]= received;
+        bot.sendMessage(chat_id, "SoilHum: " + sensValue[2], "");
         //Serial.print("SOILHUM --> ");
         //Serial.println(received, 3); // printing the result to the serial monitor
         
