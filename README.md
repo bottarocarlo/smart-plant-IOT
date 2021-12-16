@@ -50,3 +50,5 @@ add file .zip https://github.com/witnessmenow/Universal-Arduino-Telegram-Bot <br
 install from library manager arduinoJson, and select your board from tool > board <br/>
 
 
+https://github.com/amcewen/HttpClient/releases <br/>
+
