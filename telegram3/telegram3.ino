@@ -18,9 +18,13 @@ UniversalTelegramBot bot(BOTtoken, client);
 
 
 void water() {
-  digitalWrite(pump, HIGH);
-  delay(2000);
-  digitalWrite(pump, LOW);
+
+  //Serial.println("OK BRO");
+  /*
+    digitalWrite(pump, HIGH);
+    delay(2000);
+    digitalWrite(pump, LOW);
+  */
 }
 
 void setupOutput() {
@@ -93,18 +97,6 @@ void handleNewMessages(int numNewMessages) {
       bot.sendMessage(chat_id, "Mode is now set to TIMER,\nSend every x hours", "");
       //bot.sendMessage(chat_id, "Mode is now set to TIMER", "");
 
-      numNewMessages = bot.getUpdates(bot.last_message_received + 1);
-      for (int i = 0; i < numNewMessages; i++) {
-        String chat_id = String(bot.messages[i].chat_id);
-        if (chat_id != CHAT_ID) {
-          bot.sendMessage(chat_id, "Unauthorized user", "");
-          continue;
-        }
-
-        // Print the received message
-        String user_text = bot.messages[i].text;
-        Serial.println(user_text);
-      }
 
       mode = 2;
     }
@@ -211,6 +203,27 @@ void handleNewMessages(int numNewMessages) {
       bot.sendMessageWithReplyKeyboard(chat_id, "Choose from one of the following options", "", keyboardJson, true);
     }
 
+    if(user_text.toInt() > 0 && user_text.toInt()< 100) {
+
+      // Print the received message
+        String user_text = bot.messages[i].text;
+        
+        timer = user_text.toInt();
+        Serial.println("SONO IO");
+        Serial.println(timer);
+
+        if (timer > 0) {  // tests if myChar is a digit
+          timer = timer * 10000;
+          Serial.println(timer);
+          Serial.println(millis());
+          //DA MODIFICARE CON 3600000 PER LE ORE!! COS^ SONO MOMENTANEAMENTE SECONDI
+          lastTimeforTimer = millis();
+        }
+        else {
+          bot.sendMessage(chat_id, "Mattachione!", "");
+        }
+
+    }
   }
 }
 
@@ -256,20 +269,10 @@ void loop() {
     }
     lastTimeBotRan = millis();
   }
-  switch (mode) {
-    case 1:
-      //MANUAL
-      //Serial.println("MANUAL!");
-      break;
-    case 2:
-      //TIMER
-      //Serial.println("TIMER!");
 
-
-
-      break;
-    default:
-      break;
+  if (mode == 2 && millis() > (lastTimeforTimer + timer)) {
+    water();
+    lastTimeforTimer = millis();
   }
 
 
