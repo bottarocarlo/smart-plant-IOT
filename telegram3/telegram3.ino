@@ -63,6 +63,8 @@ void handleNewMessages(int numNewMessages) {
     String your_name = bot.messages[i].from_name;
 
     if (user_text == "/start") {
+      bot.sendChatAction(chat_id, "typing");
+      delay(4000);
       String welcome = "Welcome, " + your_name + ".\n";
       welcome += "Use the following commands to control your plants!🪴🪴\n";
       welcome += "You can now choose how to water your plant \n";
@@ -88,8 +90,10 @@ void handleNewMessages(int numNewMessages) {
     }
     //TIMER mode=2
     if (user_text == "/timer") {
-      bot.sendMessage(chat_id, "Mode is now set to TIMER", "");
+      bot.sendMessage(chat_id, "Mode is now set to TIMER,\nSend every x hours", "");
+      //bot.sendMessage(chat_id, "Mode is now set to TIMER", "");
       
+        
       mode =2;
     }
     //GET_MODE
@@ -186,8 +190,26 @@ void handleNewMessages(int numNewMessages) {
     }else if(user_text == "/water"  && mode!=0){
       bot.sendMessage(chat_id, "Error try to change mode to MANUAL to give water!","");
     }
+
+    if (user_text == "/options")
+    {
+      String keyboardJson = "[[\"/ledon\", \"/ledoff\"],[\"/status\"]]";
+      bot.sendMessageWithReplyKeyboard(chat_id, "Choose from one of the following options", "", keyboardJson, true);
+    }
        
   }
+}
+
+void bot_setup()
+{
+  const String commands = F("["
+                            "{\"command\":\"start\", \"description\":\"Message sent when you open a chat with a bot\"},"
+                            "{\"command\":\"get_mode\",  \"description\":\"Get bot usage help\"},"
+                            "{\"command\":\"get_state\", \"description\":\"Message sent when you open a chat with a bot\"},"
+                            "{\"command\":\"help\",\"description\":\"not done yet\"}" // no comma on last command
+                            "]");
+  bot.setMyCommands(commands);
+  //bot.sendMessage("25235518", "Hola amigo!", "Markdown");
 }
 
 void setup() {
@@ -204,6 +226,7 @@ void setup() {
 
   setupOutput();
   setupWiFi();
+  bot_setup();
 }
 
 
@@ -227,6 +250,8 @@ void loop() {
     case 2:
       //TIMER
       //Serial.println("TIMER!");
+    
+      
       
     break;
     default:

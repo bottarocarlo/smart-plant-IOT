@@ -2,8 +2,15 @@
 #define config_h
 
   // WiFi
-#define ssid     "Universitari"			// Add wifi name
-#define password "UniversitarioMatto.2020$"	// Add wifi passowrd
+  
+  /*
+   * 
+   * #define ssid     "Universitari"			// Add wifi name
+   * #define password "UniversitarioMatto.2020$"	// Add wifi passowrd
+   * 
+   */
+#define ssid     "iPhone di Carlo"      // Add wifi name
+#define password "carletto2"            // Add wifi passowrd
 
 // Initialize Telegram BOT
 #define BOTtoken "2142355090:AAGgN6cov95TfNgBSPHevaTcp2sR6L6VxcM"	// replace this with your bot token
@@ -36,6 +43,8 @@ String valori;
   // BOT time.
 int bot_delay = 1000;
 unsigned long lastTimeBotRan;
+unsigned long lastTimeforTimer;
+unsigned long timer;
 
 //SERIAL
 SoftwareSerial Lux(D7, D8); // rx , tx
