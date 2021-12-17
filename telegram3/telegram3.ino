@@ -1,29 +1,29 @@
 #ifdef ESP32
-  #include <WiFi.h>
+#include <WiFi.h>
 #else
-  #include <ESP8266WiFi.h>
+#include <ESP8266WiFi.h>
 #endif
 #include <WiFiClientSecure.h>
-#include <UniversalTelegramBot.h>   
+#include <UniversalTelegramBot.h>
 #include <ArduinoJson.h>
 #include "SoftwareSerial.h"
 #include "config.h"
 
 #ifdef ESP8266
-  X509List cert(TELEGRAM_CERTIFICATE_ROOT);
+X509List cert(TELEGRAM_CERTIFICATE_ROOT);
 #endif
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 
 
-void water(){
+void water() {
   digitalWrite(pump, HIGH);
   delay(2000);
   digitalWrite(pump, LOW);
 }
 
-void setupOutput(){
+void setupOutput() {
   //dichiarazione GPIO
   pinMode(ledPin, OUTPUT);
   pinMode(pump, OUTPUT);
@@ -31,13 +31,13 @@ void setupOutput(){
   digitalWrite(pump, LOW);
 }
 
-void setupWiFi(){
+void setupWiFi() {
   // Connect to Wi-Fi
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  #ifdef ESP32
-    client.setCACert(TELEGRAM_CERTIFICATE_ROOT); // Add root certificate for api.telegram.org
-  #endif
+#ifdef ESP32
+  client.setCACert(TELEGRAM_CERTIFICATE_ROOT); // Add root certificate for api.telegram.org
+#endif
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi..");
@@ -48,14 +48,14 @@ void setupWiFi(){
 
 // Handle what happens when you receive new messages
 void handleNewMessages(int numNewMessages) {
-  for (int i=0; i<numNewMessages; i++) {
+  for (int i = 0; i < numNewMessages; i++) {
     // Chat id of the requester
     String chat_id = String(bot.messages[i].chat_id);
-    if (chat_id != CHAT_ID){
+    if (chat_id != CHAT_ID) {
       bot.sendMessage(chat_id, "Unauthorized user", "");
       continue;
     }
-    
+
     // Print the received message
     String user_text = bot.messages[i].text;
     Serial.println(user_text);
@@ -64,7 +64,7 @@ void handleNewMessages(int numNewMessages) {
 
     if (user_text == "/start") {
       bot.sendChatAction(chat_id, "typing");
-      delay(4000);
+      delay(2000);
       String welcome = "Welcome, " + your_name + ".\n";
       welcome += "Use the following commands to control your plants!🪴🪴\n";
       welcome += "You can now choose how to water your plant \n";
@@ -80,123 +80,137 @@ void handleNewMessages(int numNewMessages) {
       String welcome = "Mode is now set to MANUAL\n";
       welcome += "Use the command /water to control your plant!🪴🪴\n";
       bot.sendMessage(chat_id, welcome, "");
-      
-      mode =0;
+
+      mode = 0;
     }
     //AUTOMATIC mode=1
     if (user_text == "/automatic") {
       bot.sendMessage(chat_id, "Mode is now set to AUTOMATIC", "");
-      mode =1;
+      mode = 1;
     }
     //TIMER mode=2
     if (user_text == "/timer") {
       bot.sendMessage(chat_id, "Mode is now set to TIMER,\nSend every x hours", "");
       //bot.sendMessage(chat_id, "Mode is now set to TIMER", "");
-      
-        
-      mode =2;
+
+      numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+      for (int i = 0; i < numNewMessages; i++) {
+        String chat_id = String(bot.messages[i].chat_id);
+        if (chat_id != CHAT_ID) {
+          bot.sendMessage(chat_id, "Unauthorized user", "");
+          continue;
+        }
+
+        // Print the received message
+        String user_text = bot.messages[i].text;
+        Serial.println(user_text);
+      }
+
+      mode = 2;
     }
     //GET_MODE
     if (user_text == "/get_mode") {
-      if(mode==0){
+      if (mode == 0) {
         bot.sendMessage(chat_id, "Mode set to MANUAL", "");
-      }else if(mode==1){
+      } else if (mode == 1) {
         bot.sendMessage(chat_id, "Mode set to AUTOMATIC", "");
-      }else if(mode==2){
+      } else if (mode == 2) {
         bot.sendMessage(chat_id, "Mode set to TIMER", "");
-      }else{
+      } else {
         bot.sendMessage(chat_id, "Mode not set yet, Error 001", "");
       }
-      
+
     }
     //GET_STATE
     if (user_text == "/get_state") {
       bot.sendMessage(chat_id, "Working on it, wait few seconds..", "");
       if (Serial.available() > 0)
-    {
-      delay(5);  // wait for all 4 bytes
-      byte buf[4];
-      byte* bp = buf;
-      while (Serial.available()) {
-        *bp = Serial.read();
-        if (bp - buf < 3) bp++;
-      }
-      float received = * (float*)buf;
-      sensValue[3]= received;
-      bot.sendMessage(chat_id, "Temp: " + sensValue[3], "");
-      //Serial.print("TEMP --> ");
-      //Serial.println(received, 3); // printing the result to the serial monitor
-      
-    }
-    delay(100); // not really required, should be smaller than sender cycle that is set to 3k
-    if (Lux.available() > 0)
-    {
-      delay(5);  // wait for all 4 bytes
-      byte buf[4];
-      byte* bp = buf;
-      while (Lux.available()) {
-        *bp = Lux.read();
-        if (bp - buf < 3) bp++;
-      }
-      float received = * (float*)buf;
-      sensValue[0]= received;
-      bot.sendMessage(chat_id, "Lum: " + sensValue[0], "");
-      //Serial.print("LUX --> ");
-      //Serial.println(received, 3); // printing the result to the serial monitor
-      
-    }
-    delay(100);
-    if (Water.available() > 0)
-    {
-      delay(5);  // wait for all 4 bytes
-      byte buf[4];
-      byte* bp = buf;
-      while (Water.available()) {
-        *bp = Water.read();
-        if (bp - buf < 3) bp++;
-      }
-      float received = * (float*)buf;
-      sensValue[1]= received;
-      bot.sendMessage(chat_id, "Water: " + sensValue[1], "");
-      //Serial.print("WATER --> ");
-      //Serial.println(received, 3); // printing the result to the serial monitor
-      
-  
-      delay(100);
-      if (SoilHum.available() > 0)
       {
         delay(5);  // wait for all 4 bytes
         byte buf[4];
         byte* bp = buf;
-        while (SoilHum.available()) {
-          *bp = SoilHum.read();
+        while (Serial.available()) {
+          *bp = Serial.read();
           if (bp - buf < 3) bp++;
         }
         float received = * (float*)buf;
-        sensValue[2]= received;
-        bot.sendMessage(chat_id, "SoilHum: " + sensValue[2], "");
-        //Serial.print("SOILHUM --> ");
+        sensValue[3] = received;
+        bot.sendMessage(chat_id, "Temp: " + sensValue[3], "");
+        //Serial.print("TEMP --> ");
         //Serial.println(received, 3); // printing the result to the serial monitor
-        
-      }
-    }
 
-      
+      }
+      delay(100); // not really required, should be smaller than sender cycle that is set to 3k
+      if (Lux.available() > 0)
+      {
+        delay(5);  // wait for all 4 bytes
+        byte buf[4];
+        byte* bp = buf;
+        while (Lux.available()) {
+          *bp = Lux.read();
+          if (bp - buf < 3) bp++;
+        }
+        float received = * (float*)buf;
+        sensValue[0] = received;
+        bot.sendMessage(chat_id, "Lum: " + sensValue[0], "");
+        //Serial.print("LUX --> ");
+        //Serial.println(received, 3); // printing the result to the serial monitor
+
+      }
+      delay(100);
+      if (Water.available() > 0)
+      {
+        delay(5);  // wait for all 4 bytes
+        byte buf[4];
+        byte* bp = buf;
+        while (Water.available()) {
+          *bp = Water.read();
+          if (bp - buf < 3) bp++;
+        }
+        float received = * (float*)buf;
+        sensValue[1] = received;
+        bot.sendMessage(chat_id, "Water: " + sensValue[1], "");
+        //Serial.print("WATER --> ");
+        //Serial.println(received, 3); // printing the result to the serial monitor
+
+
+        delay(100);
+        if (SoilHum.available() > 0)
+        {
+          delay(5);  // wait for all 4 bytes
+          byte buf[4];
+          byte* bp = buf;
+          while (SoilHum.available()) {
+            *bp = SoilHum.read();
+            if (bp - buf < 3) bp++;
+          }
+          float received = * (float*)buf;
+          sensValue[2] = received;
+          bot.sendMessage(chat_id, "SoilHum: " + sensValue[2], "");
+          //Serial.print("SOILHUM --> ");
+          //Serial.println(received, 3); // printing the result to the serial monitor
+
+        }
+      }
+
+
     }
     //WATER
-    if (user_text == "/water"  && mode==0) {
+    if (user_text == "/water"  && mode == 0) {
       water();
       bot.sendMessage(chat_id, "I'll give your plant some water", "");
-    }else if(user_text == "/water"  && mode!=0){
-      bot.sendMessage(chat_id, "Error try to change mode to MANUAL to give water!","");
+    } else if (user_text == "/water"  && mode != 0) {
+      bot.sendMessage(chat_id, "Error try to change mode to MANUAL to give water!", "");
     }
+
+
 
     if (user_text == "/options")
     {
       String keyboardJson = "[[\"/ledon\", \"/ledoff\"],[\"/status\"]]";
       bot.sendMessageWithReplyKeyboard(chat_id, "Choose from one of the following options", "", keyboardJson, true);
     }
-       
+
   }
 }
 
@@ -217,11 +231,11 @@ void setup() {
   Lux.begin(115200);
   Water.begin(115200);
   SoilHum.begin(115200);
-  
-  #ifdef ESP8266
-    configTime(0, 0, "pool.ntp.org");      // get UTC time via NTP
-    client.setTrustAnchors(&cert); // Add root certificate for api.telegram.org
-  #endif
+
+#ifdef ESP8266
+  configTime(0, 0, "pool.ntp.org");      // get UTC time via NTP
+  client.setTrustAnchors(&cert); // Add root certificate for api.telegram.org
+#endif
 
 
   setupOutput();
@@ -235,28 +249,28 @@ void loop() {
   if (millis() > lastTimeBotRan + bot_delay)  {
     int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
 
-    while(numNewMessages) {
+    while (numNewMessages) {
       Serial.println("Got Response!");
       handleNewMessages(numNewMessages);
       numNewMessages = bot.getUpdates(bot.last_message_received + 1);
     }
     lastTimeBotRan = millis();
   }
-  switch(mode){
+  switch (mode) {
     case 1:
       //MANUAL
       //Serial.println("MANUAL!");
-    break;
+      break;
     case 2:
       //TIMER
       //Serial.println("TIMER!");
-    
-      
-      
-    break;
+
+
+
+      break;
     default:
-    break;
+      break;
   }
 
-  
+
 }
