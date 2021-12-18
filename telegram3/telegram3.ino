@@ -204,6 +204,7 @@ void handleNewMessages(int numNewMessages) {
     }
 
     if(user_text.toInt() > 0 && user_text.toInt()< 100) {
+      
 
       // Print the received message
         String user_text = bot.messages[i].text;
