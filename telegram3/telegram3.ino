@@ -232,9 +232,9 @@ void bot_setup()
 {
   const String commands = F("["
                             "{\"command\":\"start\", \"description\":\"Message sent when you open a chat with a bot\"},"
-                            "{\"command\":\"get_mode\",  \"description\":\"Get bot usage help\"},"
-                            "{\"command\":\"get_state\", \"description\":\"Message sent when you open a chat with a bot\"},"
-                            "{\"command\":\"help\",\"description\":\"not done yet\"}" // no comma on last command
+                            "{\"command\":\"get_mode\",  \"description\":\"----------------\"},"
+                            "{\"command\":\"get_state\", \"description\":\"----------------\"},"
+                            "{\"command\":\"help\",\"description\":\"---------------\"}" // no comma on last command
                             "]");
   bot.setMyCommands(commands);
   //bot.sendMessage("25235518", "Hola amigo!", "Markdown");
