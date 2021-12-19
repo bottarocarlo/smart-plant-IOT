@@ -19,7 +19,7 @@ UniversalTelegramBot bot(BOTtoken, client);
 
 void water() {
 
-  //Serial.println("OK BRO");
+  Serial.println("OK BRO");
   /*
     digitalWrite(pump, HIGH);
     delay(2000);
@@ -215,7 +215,7 @@ void handleNewMessages(int numNewMessages) {
 
         if (timer > 0) {  // tests if myChar is a digit
           timer = timer * 10000;
-          Serial.println(timer);
+          //Serial.println(timer);
           Serial.println(millis());
           //DA MODIFICARE CON 3600000 PER LE ORE!! COS^ SONO MOMENTANEAMENTE SECONDI
           lastTimeforTimer = millis();
