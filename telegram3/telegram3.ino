@@ -18,17 +18,14 @@ UniversalTelegramBot bot(BOTtoken, client);
 
 
 void water() {
-
-  Serial.println("OK BRO");
-  /*
+  // Pumps works for 2 seconds
     digitalWrite(pump, HIGH);
     delay(2000);
     digitalWrite(pump, LOW);
-  */
 }
 
 void setupOutput() {
-  //dichiarazione GPIO
+  // Declaration GPIO
   pinMode(ledPin, OUTPUT);
   pinMode(pump, OUTPUT);
   digitalWrite(ledPin, ledState);
@@ -54,7 +51,7 @@ void setupWiFi() {
 void handleNewMessages(int numNewMessages) {
   for (int i = 0; i < numNewMessages; i++) {
     // Chat id of the requester
-    String chat_id = String(bot.messages[i].chat_id);
+    chat_id = String(bot.messages[i].chat_id);
     if (chat_id != CHAT_ID) {
       bot.sendMessage(chat_id, "Unauthorized user", "");
       continue;
@@ -66,6 +63,7 @@ void handleNewMessages(int numNewMessages) {
 
     String your_name = bot.messages[i].from_name;
 
+    // START
     if (user_text == "/start") {
       bot.sendChatAction(chat_id, "typing");
       delay(2000);
@@ -79,6 +77,7 @@ void handleNewMessages(int numNewMessages) {
       welcome += "Send /get_mode to request current mode \n";
       bot.sendMessage(chat_id, welcome, "");
     }
+    
     //MANUAL mode=0
     if (user_text == "/manual") {
       String welcome = "Mode is now set to MANUAL\n";
@@ -87,19 +86,19 @@ void handleNewMessages(int numNewMessages) {
 
       mode = 0;
     }
+    
     //AUTOMATIC mode=1
     if (user_text == "/automatic") {
       bot.sendMessage(chat_id, "Mode is now set to AUTOMATIC", "");
       mode = 1;
     }
+    
     //TIMER mode=2
     if (user_text == "/timer") {
       bot.sendMessage(chat_id, "Mode is now set to TIMER,\nSend every x hours", "");
-      //bot.sendMessage(chat_id, "Mode is now set to TIMER", "");
-
-
       mode = 2;
     }
+    
     //GET_MODE
     if (user_text == "/get_mode") {
       if (mode == 0) {
@@ -111,8 +110,8 @@ void handleNewMessages(int numNewMessages) {
       } else {
         bot.sendMessage(chat_id, "Mode not set yet, Error 001", "");
       }
-
     }
+    
     //GET_STATE
     if (user_text == "/get_state") {
       bot.sendMessage(chat_id, "Working on it, wait few seconds..", "");
@@ -164,8 +163,6 @@ void handleNewMessages(int numNewMessages) {
         bot.sendMessage(chat_id, "Water: " + sensValue[1], "");
         //Serial.print("WATER --> ");
         //Serial.println(received, 3); // printing the result to the serial monitor
-
-
         delay(100);
         if (SoilHum.available() > 0)
         {
@@ -184,10 +181,9 @@ void handleNewMessages(int numNewMessages) {
 
         }
       }
-
-
     }
-    //WATER
+    
+    //WATER MANUAL MODE
     if (user_text == "/water"  && mode == 0) {
       water();
       bot.sendMessage(chat_id, "I'll give your plant some water", "");
@@ -196,33 +192,24 @@ void handleNewMessages(int numNewMessages) {
     }
 
 
-
-    if (user_text == "/options")
-    {
-      String keyboardJson = "[[\"/ledon\", \"/ledoff\"],[\"/status\"]]";
-      bot.sendMessageWithReplyKeyboard(chat_id, "Choose from one of the following options", "", keyboardJson, true);
-    }
-
-    if(user_text.toInt() > 0 && user_text.toInt()< 100) {
-      
-
+    //WATER TIMER MODE
+    if (user_text.toInt() > 0 && user_text.toInt() < 100 && mode==2) {
       // Print the received message
-        String user_text = bot.messages[i].text;
-        
-        timer = user_text.toInt();
-        Serial.println("SONO IO");
-        Serial.println(timer);
-
-        if (timer > 0) {  // tests if myChar is a digit
-          timer = timer * 10000;
-          //Serial.println(timer);
-          Serial.println(millis());
-          //DA MODIFICARE CON 3600000 PER LE ORE!! COS^ SONO MOMENTANEAMENTE SECONDI
-          lastTimeforTimer = millis();
-        }
-        else {
-          bot.sendMessage(chat_id, "Mattachione!", "");
-        }
+      String user_text = bot.messages[i].text;
+      
+      timer = user_text.toInt();
+      Serial.println(timer);
+      
+      if (timer > 0) {  // tests if myChar is a digit
+        timer = timer * 10000;
+        String setTimer = "Timer is set for " + (String)timer + " hour(s)";
+        //DA MODIFICARE CON 3600000 PER LE ORE!! COS^ SONO MOMENTANEAMENTE SECONDI
+        bot.sendMessage(chat_id,setTimer, "");
+        lastTimeforTimer = millis();
+      }
+      else {
+        bot.sendMessage(chat_id, "Mattachione!", "");
+      }
 
     }
   }
@@ -232,12 +219,14 @@ void bot_setup()
 {
   const String commands = F("["
                             "{\"command\":\"start\", \"description\":\"Message sent when you open a chat with a bot\"},"
+                            "{\"command\":\"automatic\",  \"description\":\"to water in autonomous way your plant\"},"
+                            "{\"command\":\"manual\", \"description\":\"to manual water your plant when you want\"},"
+                            "{\"command\":\"timer\",  \"description\":\"to water your plant every xx minutes\"},"
                             "{\"command\":\"get_mode\",  \"description\":\"----------------\"},"
                             "{\"command\":\"get_state\", \"description\":\"----------------\"},"
                             "{\"command\":\"help\",\"description\":\"---------------\"}" // no comma on last command
                             "]");
   bot.setMyCommands(commands);
-  //bot.sendMessage("25235518", "Hola amigo!", "Markdown");
 }
 
 void setup() {
@@ -272,6 +261,7 @@ void loop() {
   }
 
   if (mode == 2 && millis() > (lastTimeforTimer + timer)) {
+    bot.sendMessage(chat_id, "gave some water", "");
     water();
     lastTimeforTimer = millis();
   }

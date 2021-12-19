@@ -15,6 +15,7 @@
 // Initialize Telegram BOT
 #define BOTtoken "2142355090:AAGgN6cov95TfNgBSPHevaTcp2sR6L6VxcM"	// replace this with your bot token
 #define CHAT_ID "189749700"		//replace with your telegram user ID
+String chat_id;
 
   //MODE
 int mode = 0;
@@ -42,9 +43,9 @@ String valori;
 
   // BOT time.
 int bot_delay = 1000;
-unsigned long lastTimeBotRan;
-unsigned long lastTimeforTimer;
-unsigned long timer;
+unsigned long lastTimeBotRan=0;
+unsigned long lastTimeforTimer=0;
+unsigned long timer=-1;
 
 //SERIAL
 SoftwareSerial Lux(D7, D8); // rx , tx
