@@ -1,9 +1,11 @@
 #include "SoftwareSerial.h"
+#include "conversion.h"
 
 SoftwareSerial Lux(7, 8); // rx , tx
 SoftwareSerial Water(2, 3) ; // rx , tx
 SoftwareSerial SoilHum(4, 5); // rx , tx
 
+/*
 float TempConversion(float value) {
   float tempK = log(10000.0 * ((1024.0 / value - 1))); //10K is the resistor value!!
   tempK = 1 / (0.001129148 + (0.000234125 + (0.0000000876741 * tempK * tempK )) * tempK );       //  Temp Kelvin
@@ -17,6 +19,7 @@ float LuxConversion (int value)
   int lux=500/(10*((5-Vout)/Vout));
   return lux;
 }
+*/
 
 
 // variables:
