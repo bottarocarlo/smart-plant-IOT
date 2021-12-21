@@ -50,6 +50,18 @@ unsigned long timer=-1;
 //SERIAL
 
 SoftwareSerial input(D4, D5); // rx , tx
+boolean newData = false;
+
+const byte numChars = 32;
+char receivedChars[numChars];
+char tempChars[numChars];        // temporary array for use when parsing
+
+// variables to hold the parsed data
+float temp = 0.0;
+float lux = 0.0;
+float water = 0.0;
+float soilHum = 0.0;
+
 
 
 
