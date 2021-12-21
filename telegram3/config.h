@@ -28,7 +28,7 @@ int mode = 0;
   //SENSOR & ATTUATOR
 const int ledPin = D2;
 bool ledState = LOW;
-const int pump = LED_BUILTIN;
+const int pump = D0;
 const int NUMSENS = 4;
 String sensValue[NUMSENS];
 /*
@@ -48,9 +48,8 @@ unsigned long lastTimeforTimer=0;
 unsigned long timer=-1;
 
 //SERIAL
-SoftwareSerial Lux(D7, D8); // rx , tx
-SoftwareSerial Water(D2, D3) ; // rx , tx
-SoftwareSerial SoilHum(D4, D5); // rx , tx
+
+SoftwareSerial input(D4, D5); // rx , tx
 
 
 

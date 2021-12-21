@@ -19,17 +19,17 @@ UniversalTelegramBot bot(BOTtoken, client);
 
 void water() {
   // Pumps works for 2 seconds
-    digitalWrite(pump, HIGH);
+    digitalWrite(D0, HIGH);
     delay(2000);
-    digitalWrite(pump, LOW);
+    digitalWrite(D0, LOW);
 }
 
 void setupOutput() {
   // Declaration GPIO
   pinMode(ledPin, OUTPUT);
-  pinMode(pump, OUTPUT);
+  pinMode(D0, OUTPUT);
   digitalWrite(ledPin, ledState);
-  digitalWrite(pump, LOW);
+  digitalWrite(D0, LOW);
 }
 
 void setupWiFi() {
