@@ -20,10 +20,12 @@ String chat_id;
   //MODE
 int mode = 0;
 /*
-*0-manual 
-*1-automatic
-*2-timer
-*/
+ * starting mode MANUAL
+ * 
+ * 0-manual s
+ * 1-automatic
+ * 2-timer
+ */
 
   //SENSOR & ATTUATOR
 const int ledPin = D2;

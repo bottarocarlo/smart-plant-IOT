@@ -132,10 +132,16 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
   for (int i = 0; i < numNewMessages; i++) {
     // Chat id of the requester
     chat_id = String(bot.messages[i].chat_id);
-    if (chat_id != CHAT_ID) {
-      bot.sendMessage(chat_id, "Unauthorized user", "");
-      continue;
-    }
+
+    /*
+     * USER AUTHORIZATION
+     * 
+     * if (chat_id != CHAT_ID) {
+     * bot.sendMessage(chat_id, "Unauthorized user", "");
+     * continue;
+     * } 
+     */
+    
 
     // Print the received message
     String user_text = bot.messages[i].text;
