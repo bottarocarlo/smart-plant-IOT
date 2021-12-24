@@ -196,7 +196,6 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
     if (user_text == "/get_state") {
       bot.sendMessage(chat_id, "Working on it, wait few seconds..", "");
       recvWithStartEndMarkers();
-
       if (newData == true) {
         strcpy(tempChars, receivedChars);
         // this temporary copy is necessary to protect the original data
@@ -204,7 +203,7 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
         parseData();
         showParsedData();
         newData = false;
-        bot.sendMessage(chat_id, "SoilHum: " + sensValue[2], "");
+        
         Serial.println(" ");
         Serial.println(" ");
       }

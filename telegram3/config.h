@@ -29,17 +29,7 @@ int mode = 0;
 const int ledPin = D2;
 bool ledState = LOW;
 const int pump = D0;
-const int NUMSENS = 4;
-String sensValue[NUMSENS];
-/*
- * sensValue[0]==Photoresistor
- * sensValue[1]==Waterlevel
- * sensValue[2]==SoilHumidity
- * sensValue[3]==Thermoresistor
- */
-int sensPos = 0; //Posizione nell'array
-String data;
-String valori;
+
 
   // BOT time.
 int bot_delay = 1000;
