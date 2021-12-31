@@ -92,6 +92,20 @@ void showParsedData() {
 
 //============
 
+void multiplexer(){
+  digitalWrite(D2, HIGH);
+    Serial.println(analogRead(A0));
+  digitalWrite(D2, LOW);
+  delay(100);
+  digitalWrite(D3, HIGH);
+    Serial.println(analogRead(A0));
+  digitalWrite(D4, LOW);
+
+  
+}
+
+//============
+
 void giveWater() {
   // Pumps works for 2 seconds
   digitalWrite(D0, HIGH);
@@ -107,6 +121,13 @@ void setupOutput() {
   pinMode(D0, OUTPUT);
   digitalWrite(ledPin, ledState);
   digitalWrite(D0, LOW);
+
+
+  pinMode(D2, OUTPUT); // light
+  pinMode(D3, OUTPUT);// temperature
+  digitalWrite(D2, LOW);
+  digitalWrite(D3, LOW);
+  pinMode(A0, INPUT); //analog input
 }
 
 //============
@@ -134,14 +155,14 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
     chat_id = String(bot.messages[i].chat_id);
 
     /*
-     * USER AUTHORIZATION
-     * 
-     * if (chat_id != CHAT_ID) {
-     * bot.sendMessage(chat_id, "Unauthorized user", "");
-     * continue;
-     * } 
-     */
-    
+       USER AUTHORIZATION
+
+       if (chat_id != CHAT_ID) {
+       bot.sendMessage(chat_id, "Unauthorized user", "");
+       continue;
+       }
+    */
+
 
     // Print the received message
     String user_text = bot.messages[i].text;
@@ -154,7 +175,7 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
       bot.sendChatAction(chat_id, "typing");
       delay(2000);
       String welcome = "Welcome, " + your_name + ".\n";
-      welcome += "Use the following commands to control your plants!🪴🪴\n";
+      welcome += "Use the following commands to control your plants!🪴🌱🌱\n";
       welcome += "You can now choose how to water your plant \n";
       welcome += "Send /automatic to water in autonomous way your plant \n";
       welcome += "Send /manual to manual water your plant when you want\n";
@@ -201,7 +222,7 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
     //GET_STATE
     if (user_text == "/get_state") {
       bot.sendMessage(chat_id, "Working on it, wait few seconds..", "");
-      recvWithStartEndMarkers();
+      /*recvWithStartEndMarkers();
       if (newData == true) {
         strcpy(tempChars, receivedChars);
         // this temporary copy is necessary to protect the original data
@@ -209,10 +230,11 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
         parseData();
         showParsedData();
         newData = false;
-        
+
         Serial.println(" ");
         Serial.println(" ");
-      }
+      }*/
+      multiplexer();
 
     }
 
@@ -234,8 +256,8 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
       Serial.println(timer);
 
       if (timer > 0) {  // tests if myChar is a digit
+        String setTimer = "Timer is set for " + (String)timer + " seconds(s)";
         timer = timer * 10000;
-        String setTimer = "Timer is set for " + (String)timer + " hour(s)";
         //DA MODIFICARE CON 3600000 PER LE ORE!! COS^ SONO MOMENTANEAMENTE SECONDI
         bot.sendMessage(chat_id, setTimer, "");
         lastTimeforTimer = millis();
@@ -255,10 +277,10 @@ void bot_setup() {
                             "{\"command\":\"start\", \"description\":\"Message sent when you open a chat with a bot\"},"
                             "{\"command\":\"automatic\",  \"description\":\"to water in autonomous way your plant\"},"
                             "{\"command\":\"manual\", \"description\":\"to manual water your plant when you want\"},"
-                            "{\"command\":\"timer\",  \"description\":\"to water your plant every xx minutes\"},"
-                            "{\"command\":\"get_mode\",  \"description\":\"----------------\"},"
-                            "{\"command\":\"get_state\", \"description\":\"----------------\"},"
-                            "{\"command\":\"help\",\"description\":\"---------------\"}" // no comma on last command
+                            "{\"command\":\"timer\",  \"description\":\"to water your plant every xx minutes\"}"
+                            //"{\"command\":\"get_mode\",  \"description\":\"----------------\"},"
+                            //"{\"command\":\"get_state\", \"description\":\"----------------\"},"
+                            //"{\"command\":\"help\",\"description\":\"---------------\"}" // no comma on last command
                             "]");
   bot.setMyCommands(commands);
 }
@@ -294,10 +316,18 @@ void loop() {
     lastTimeBotRan = millis();
   }
 
+  //TIMER MODE
   if (mode == 2 && millis() > (lastTimeforTimer + timer)) {
     bot.sendMessage(chat_id, "gave some water", "");
     giveWater();
     lastTimeforTimer = millis();
+  }
+
+  //AUTOMATIC MODE
+  if (mode == 0) {
+    //calibrate the sensor and give water whenever you need
+
+
   }
 
 
