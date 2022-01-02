@@ -37,14 +37,14 @@ void loop() {
 
 
   if (state == 1) {
-    //tempArr = analogRead(A0);
-    //tempArr = TempConversion(tempArr);
+    tempArr = analogRead(A0);
+    tempArr = TempConversion(tempArr);
     luxArr = analogRead(A1);
     luxArr = LuxConversion(luxArr);
     //waterArr = analogRead(A2);
     //waterArr = map(waterArr, 0, 300, 0, 100);
-    //soilHumArr = analogRead(A3);
-    //soilHumArr = map(soilHumArr, 600, 150, 0, 100);
+    soilHumArr = analogRead(A3);
+    soilHumArr = map(soilHumArr, 600, 150, 0, 100);
     String valori = "<" + (String)tempArr + "," + (String)luxArr + "," + (String)waterArr + "," + (String)soilHumArr + ">";
     Serial.println(valori); //For debug, to check if the values are correct on Arduino Side
     output.println(valori);

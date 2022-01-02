@@ -1,22 +1,49 @@
+/*
+  Telegram3 + twitter
+*/
 #ifdef ESP32
 #include <WiFi.h>
 #else
 #include <ESP8266WiFi.h>
 #endif
+#include <TimeLib.h>
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
+#include <TwitterWebAPI.h>
 #include <ArduinoJson.h>
+#include <ESP8266HTTPClient.h>
+//https://github.com/taranais/NTPClient
+#include <NTPClient.h> //Per sincronizzare orario, forse c'è un'altra soluzione -----------CHECK-------
+#include "time.h"
+/*
+  Mandiamo una richiesta UDP
+  idealmente la scheda funziona come un server
+  nel loop manda i pacchetti (rischiamo perdite??) ---------------------------- NEED TEST---------------
+*/
+#include <WiFiUdp.h>
 #include "SoftwareSerial.h"
 #include "config.h"
+
 
 #ifdef ESP8266
 X509List cert(TELEGRAM_CERTIFICATE_ROOT);
 #endif
 
+//Per NTPClient
+const char *ntp_server = "pool.ntp.org";  // time1.google.com, time.nist.gov, pool.ntp.org
+int timezone = +1;
+
+//Per verificare quando effettivamente vengono letti nuovi dati
 boolean newData = false;
 
+//=========== Telegram
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
+
+//=========== Twitter
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, ntp_server, timezone * 3600, 60000); // NTP server pool, offset (in seconds), update interval (in milliseconds)
+TwitterClient tcr(timeClient, consumer_key, consumer_sec, accesstoken, accesstoken_sec);
 
 
 //============
@@ -95,19 +122,32 @@ void parseData() {      // split the data into its parts
 
 void showParsedData() {
 
-String sensors = "Temp: " + (String)temp + "\n";
-      sensors += "Lux: " + (String)lux + "\n";
-      sensors += "Water: " + (String)water + "\n";
-      sensors += "SoilHum: " + (String)soilHum + "\n";
-      bot.sendMessage(chat_id, sensors, "");
+  String sensors = "Temp: " + (String)temp + "\n";
+  sensors += "Lux: " + (String)lux + "\n";
+  sensors += "Water: " + (String)water + "\n";
+  sensors += "SoilHum: " + (String)soilHum + "\n\n";
+  bot.sendMessage(chat_id, sensors, "");
+  sensors += (String)timeClient.getFormattedDate()+ "\nLC"; //Add date to modify the tweet from the previous
+
   
+
+  std::string twitterMsg = std::string(sensors.c_str());
+  tcr.tweet(twitterMsg);
+
+
+  /*
+    char sensors[TwitterMaxChars];
+    sprintf(sensors, "Temp: %.2f,\n Lux: %.2f,\n Water: %.2f,\n SoilHum: %.2f\n", temp, lux, water, soilHum);
+    bot.sendMessage(chat_id, sensors, "");
+    tcr.tweet(sensors);*/
+
   /*
     bot.sendMessage(chat_id, "Temp: " + (String)temp, "");
     bot.sendMessage(chat_id, "Lux: " + (String)lux, "");
     bot.sendMessage(chat_id, "Water: " + (String)water, "");
     bot.sendMessage(chat_id, "SoilHum: " + (String)soilHum, "");
   */
-    
+
 }
 
 //============
@@ -142,9 +182,13 @@ void setupWiFi() {
     delay(1000);
     Serial.println("Connecting to WiFi..");
   }
+
+
   // Print ESP32 Local IP Address
   Serial.println(WiFi.localIP());
 }
+
+
 
 //============
 
@@ -152,10 +196,6 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
   for (int i = 0; i < numNewMessages; i++) {
     // Chat id of the requester
     chat_id = String(bot.messages[i].chat_id);
-    if (chat_id != CHAT_ID) {
-      bot.sendMessage(chat_id, "Unauthorized user", "");
-      continue;
-    }
 
     // Print the received message
     String user_text = bot.messages[i].text;
@@ -300,6 +340,8 @@ void setup() {
   setupOutput();
   setupWiFi();
   bot_setup();
+  //Start NTPClient
+  tcr.startNTP();
 }
 
 //============
