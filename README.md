@@ -1,3 +1,8 @@
+#TODO
+Pulire coda messaggi bot al primo avvio?
+Pulire input.serial prima della lettura dei dati?
+
+
 # smart-plant-IOT🪴
 
 
