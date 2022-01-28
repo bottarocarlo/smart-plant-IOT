@@ -1,0 +1,2 @@
+GenericSensor variable_name(Port_GPIO) //Create istance
+getValue() //Give the value (100 spin), need to be printed

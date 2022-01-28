@@ -1,0 +1,2 @@
+Thermistor variable_name(Port_GPIO) //Create istance
+getTemp() //Print the value (100 spin) to the serial output
