@@ -125,7 +125,7 @@ void showParsedData() {
   sensors += "Water: " + (String)water + "\n";
   sensors += "SoilHum: " + (String)soilHum + "\n\n";
   bot.sendMessage(chat_id, sensors, "");
-  //sensors += (String)timeClient.getFormattedDate() + "\nLC"; //Add date to modify the tweet from the previous
+  sensors += (String)timeClient.getFormattedDate() + "\nLC"; //Add date to modify the tweet from the previous
 
 
 
@@ -377,7 +377,7 @@ void loop() {
     lastTimeforTimer = millis();
   }
 
-  if (millis() > (exmillis + 1000)) {
+  if (millis() > (exmillis + 10000)) {
     if (!tb.connected()) {
       // check the connection to the ThingsBoard
       Serial.print("Connecting to: ");
