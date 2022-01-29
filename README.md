@@ -25,6 +25,7 @@ plus:
 - **1 glass jar** for the water
 - **1 our little plant ina** common plant bought from Orvea
 
+![Photo of varius object]
 
 ## Software 💻
 Telegram API + Twitter + ThingsBoard
@@ -43,7 +44,7 @@ Telegram API + Twitter + ThingsBoard
 
 ## Circuit and wiring
 
-![Alt text](img/circuito.jpg?raw=true "Title")
+![Fritzing Circuit diagram]
 
 
 
