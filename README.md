@@ -4,7 +4,8 @@ Pulire input.serial prima della lettura dei dati?
 
 
 # smart-plant-IOT🪴
-
+This project was created for an assignment that we are currently completing for the project Embedded Software for the Internet of Things Unitn course 2021/2022
+Having plants require to take care of them and give them water everyday. But when you have to work around the clock, you don't have the time or just can forget to water your plant. To evoid letting the plants die, I have created a system to water them automatically.
 
 ## sensors
 ### ambiente
