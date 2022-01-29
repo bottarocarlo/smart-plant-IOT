@@ -51,7 +51,6 @@ unsigned long exmillis =0;
 SoftwareSerial input(D4, D5); // rx , tx
 
 
-
 const byte numChars = 32;
 char receivedChars[numChars];
 char tempChars[numChars];        // temporary array for use when parsing

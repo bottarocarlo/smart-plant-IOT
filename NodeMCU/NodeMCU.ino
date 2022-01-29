@@ -132,7 +132,6 @@ void showParsedData() {
   std::string twitterMsg = std::string(sensors.c_str());
   tcr.tweet(twitterMsg);
 
-
   /*
     char sensors[TwitterMaxChars];
     sprintf(sensors, "Temp: %.2f,\n Lux: %.2f,\n Water: %.2f,\n SoilHum: %.2f\n", temp, lux, water, soilHum);
