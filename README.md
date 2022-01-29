@@ -11,16 +11,17 @@ Having plants require to take care of them and give them water everyday. But whe
 
 ## NodeMCU & ThingsBoard
 
-## Hardware
+## Hardware 🛠️
 
 To build this system, we used:
 - **1 [NodeMCU ESP8266]** IoT board which runs on the ESP8266 Wi-Fi SoC
 - **1 [Arduino]** development board used for analog input
 - **1 [Soil Humdity sensor]** 
-- **1 [Luminosity sensor]** 
-- **1 [Temperature sensor]** 
-- **1 [Humidity sensor]** 
-- **1 [3,3-5V water pump]**
+- **1 [Brightness sensor]** photoresistor💡 
+- **1 [Temperature sensor]** thermistor🌡️ 
+- **1 [Water level sensor]** 🌊
+- **1 [Humidity sensor]** ☁️
+- **1 [3,3-5V water pump]** 💦
 - **1 [5V Relè]**  
 - **7 F-F Dupont cables**
 - **1 micro USB cable**
@@ -30,23 +31,21 @@ plus:
 - **1 glass jar** for the water
 - **1 our little plant ina** common plant bought from Orvea
 
-### ambiente
-🌡️ Temperature (thermistor) A0 <br /> 
-💡 Brightness (photoresistor) A1 <br />
 
-### terreno
-☁️ Soil moisture A3
-
-### service 🛠️
-🌊 Water level 
-
-## attuator
-💦Water Pump
-
-
+## Software 💻
 Telegram API + Twitter + ThingsBoard
 
+## Libraries📚
+- ** ESP8266WiFi**
+- ** TimeLib **
+- ** UniversalTelegramBot **
+- ** ArduinoJson **
+- ** NTPClient **
+- ** ThingsBoard **
+- ** SoftwareSerial**
 
+
+## Circuit and wiring
 
 ![Alt text](img/circuito.jpg?raw=true "Title")
 
