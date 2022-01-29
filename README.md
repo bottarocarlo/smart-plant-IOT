@@ -9,7 +9,6 @@ Having plants require to take care of them and give them water everyday. But whe
 
 ![Image of how the system looks]
 
-## NodeMCU & ThingsBoard
 
 ## Hardware 🛠️
 
@@ -43,6 +42,8 @@ Telegram API + Twitter + ThingsBoard
 - ** NTPClient **
 - ** ThingsBoard **
 - ** SoftwareSerial**
+- 
+## NodeMCU & ThingsBoard
 
 
 ## Circuit and wiring
