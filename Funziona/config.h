@@ -45,6 +45,7 @@ int bot_delay = 1000;
 unsigned long lastTimeBotRan=0;
 unsigned long lastTimeforTimer=0;
 unsigned long timer=-1;
+unsigned long exmillis =0;
 
   //SERIAL
 SoftwareSerial input(D4, D5); // rx , tx

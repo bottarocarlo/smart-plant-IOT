@@ -369,26 +369,38 @@ void loop() {
     lastTimeBotRan = millis();
   }
 
+  //TIMER MODE
   if (mode == 2 && millis() > (lastTimeforTimer + timer)) {
     bot.sendMessage(chat_id, "gave some water", "");
     giveWater();
     lastTimeforTimer = millis();
   }
 
-  if (!tb.connected()) {
-    // Connect to the ThingsBoard
-    Serial.print("Connecting to: ");
-    Serial.print(thingsboard_SERVER);
-    Serial.print(" with token ");
-    Serial.println(thingsboard_TOKEN);
-    if (!tb.connect(thingsboard_SERVER, thingsboard_TOKEN)) {
-      Serial.println("Failed to connect");
-      return;
-    }
+  //AUTOMATIC CHECK
+  if (mode == 1 && millis() > (lastTimeforTimer + 600000)) {
+    // check the sooil humidity every 10 minutes
+    
+    //CHECKHUMIDITY()
+    lastTimeforTimer = millis();
   }
 
-  Serial.println("Sending Data..");
-
-  tb.sendTelemetryInt("lum",analogRead(A0));
-  tb.loop();
+  if(millis() > (exmillis + 1000)){
+    if (!tb.connected()) {
+      // check the connection to the ThingsBoard
+      Serial.print("Connecting to: ");
+      Serial.print(thingsboard_SERVER);
+      Serial.print(" with token ");
+      Serial.println(thingsboard_TOKEN);
+      if (!tb.connect(thingsboard_SERVER, thingsboard_TOKEN)) {
+        Serial.println("Failed to connect");
+        return;
+      }
+    }else {
+      //Send Nudes?
+      Serial.println("Sending Data..");
+      tb.sendTelemetryInt("lum",analogRead(A0));
+      tb.loop();
+    }
+    exmillis = millis();
+  }
 }
