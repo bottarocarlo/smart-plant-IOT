@@ -1,5 +1,5 @@
 #TODO
-Pulire coda messaggi bot al primo avvio?
+Pulire coda messaggi bot al primo avvio? \n
 Pulire input.serial prima della lettura dei dati?
 
 
@@ -7,7 +7,29 @@ Pulire input.serial prima della lettura dei dati?
 This project was created for an assignment that we are currently completing for the project Embedded Software for the Internet of Things Unitn course 2021/2022
 Having plants require to take care of them and give them water everyday. But when you have to work around the clock, you don't have the time or just can forget to water your plant. To evoid letting the plants die, I have created a system to water them automatically.
 
-## sensors
+![Image of how the system looks]
+
+## NodeMCU & ThingsBoard
+
+## Hardware
+
+To build this system, we used:
+- **1 [NodeMCU ESP8266]** IoT board which runs on the ESP8266 Wi-Fi SoC
+- **1 [Arduino]** development board used for analog input
+- **1 [Soil Humdity sensor]** 
+- **1 [Luminosity sensor]** 
+- **1 [Temperature sensor]** 
+- **1 [Humidity sensor]** 
+- **1 [3,3-5V water pump]**
+- **1 [5V Relè]**  
+- **7 F-F Dupont cables**
+- **1 micro USB cable**
+- **1 USB charger**
+
+plus:
+- **1 glass jar** for the water
+- **1 our little plant ina** common plant bought from Orvea
+
 ### ambiente
 🌡️ Temperature (thermistor) A0 <br /> 
 💡 Brightness (photoresistor) A1 <br />
