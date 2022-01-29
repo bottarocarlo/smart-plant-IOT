@@ -12,14 +12,14 @@
    */
 
 
-#define ssid     "LORENZOPC"      // Add wifi name
-#define password "12345678"            // Add wifi passowrd
+#define ssid     "iPhone di Carlo"      // Add wifi name
+#define password "carletto2"            // Add wifi passowrd
 
   // Initialize Telegram BOT
 #define BOTtoken "5044399842:AAHpXZ7vP6ehEIfekzb5lEpmMKgkpkhzxqM"  // replace this with your bot token casadolcecasa
 //#define BOTtoken "2142355090:AAGgN6cov95TfNgBSPHevaTcp2sR6L6VxcM"	// replace this with your bot token BOOTARLO
 //#define CHAT_ID "250893524"		//replace with your telegram user ID
-#define CHAT_ID "1244599727"    //replace with your telegram user ID //BAZZ
+//#define CHAT_ID "1244599727"    //replace with your telegram user ID //BAZZ
 String chat_id;
 
   //MODE

@@ -125,7 +125,7 @@ void showParsedData() {
   sensors += "Water: " + (String)water + "\n";
   sensors += "SoilHum: " + (String)soilHum + "\n\n";
   bot.sendMessage(chat_id, sensors, "");
-  sensors += (String)timeClient.getFormattedDate() + "\nLC"; //Add date to modify the tweet from the previous
+  //sensors += (String)timeClient.getFormattedDate() + "\nLC"; //Add date to modify the tweet from the previous
 
 
 
@@ -136,9 +136,8 @@ void showParsedData() {
     char sensors[TwitterMaxChars];
     sprintf(sensors, "Temp: %.2f,\n Lux: %.2f,\n Water: %.2f,\n SoilHum: %.2f\n", temp, lux, water, soilHum);
     bot.sendMessage(chat_id, sensors, "");
-    tcr.tweet(sensors);*/
-
-  /*
+    tcr.tweet(sensors);
+  
     bot.sendMessage(chat_id, "Temp: " + (String)temp, "");
     bot.sendMessage(chat_id, "Lux: " + (String)lux, "");
     bot.sendMessage(chat_id, "Water: " + (String)water, "");
@@ -212,15 +211,20 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
       welcome += "Send /timer to water your plant every xx minutes \n";
       welcome += "Send /get_state to request current state \n";
       welcome += "Send /get_mode to request current mode \n";
-      bot.sendMessage(chat_id, welcome, "");
+      //bot.sendMessage(chat_id, welcome, "");
+
+
+      String keyboardJson = "[[\"/automatic\", \"/manual\",\"/timer\"],[\"/help\"]]";
+      bot.sendMessageWithReplyKeyboard(chat_id, welcome, "", keyboardJson, true);
     }
 
     //MANUAL mode=0
     if (user_text == "/manual") {
       String welcome = "Mode is now set to MANUAL\n";
       welcome += "Use the command /water to control your plant!🪴🪴\n";
-      bot.sendMessage(chat_id, welcome, "");
-
+      //bot.sendMessage(chat_id, welcome, "");
+      String keyboardJson = "[[\"/water\", \"/help\"]]";
+      bot.sendMessageWithReplyKeyboard(chat_id, welcome, "", keyboardJson, true);
       mode = 0;
     }
 
@@ -269,7 +273,10 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
           Serial.println(" ");
         }
       }
+    }
 
+    if(user_text=="/option"){
+      
     }
 
     //WATER MANUAL MODE
@@ -384,10 +391,10 @@ void loop() {
     } else {
       //Send Nudes?
       Serial.println("Sending Data..");
-      tb.sendTelemetryInt("luminosity", analogRead(A0));
-      tb.sendTelemetryInt("soilHumidity", analogRead(A0));
-      tb.sendTelemetryInt("waterLevel", analogRead(A0));
-      tb.sendTelemetryInt("temperature", analogRead(A0));
+      tb.sendTelemetryInt("luminosity", random(1,100));
+      tb.sendTelemetryInt("soilHumidity", random(1,100));
+      tb.sendTelemetryInt("waterLevel", random(1,100));
+      tb.sendTelemetryInt("temperature", random(1,100));
       tb.loop();
     }
     exmillis = millis();
