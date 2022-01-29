@@ -1,2 +1,0 @@
-Photoresistor variable_name(Port_GPIO) //Create istance
-getLux() //Print the value (100 spin) to the serial output
