@@ -28,7 +28,7 @@ Telegram API + Twitter + Web Server
 Led errori
 
 
-![Alt text](circuito.jpg?raw=true "Title")
+![Alt text](img/circuito.jpg?raw=true "Title")
 
 
 
