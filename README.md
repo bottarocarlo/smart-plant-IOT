@@ -6,26 +6,23 @@ Pulire input.serial prima della lettura dei dati?
 # smart-plant-IOT🪴
 
 
-## sensori
+## sensors
 ### ambiente
-🌡️Temperature (thermistor) A0 <br /> 
-💡Brightness (photoresistor) A1 <br />
+🌡️ Temperature (thermistor) A0 <br /> 
+💡 Brightness (photoresistor) A1 <br />
 
 ### terreno
-☁️Soil moisture A3
+☁️ Soil moisture A3
 
 ### service 🛠️
-🌊 Water level A2
+🌊 Water level 
 
-## attuatori
+## attuator
 💦Water Pump
 
 
-Telegram API + Twitter + Web Server
+Telegram API + Twitter + ThingsBoard
 
-
-
-Led errori
 
 
 ![Alt text](img/circuito.jpg?raw=true "Title")
