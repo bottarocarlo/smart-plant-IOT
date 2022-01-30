@@ -37,7 +37,7 @@ Telegram API + Twitter + ThingsBoard
 - **NTPClient**
 - **ThingsBoard**
 - **SoftwareSerial**
-- 
+
 ## NodeMCU & ThingsBoard
 
 
