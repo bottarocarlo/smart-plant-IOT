@@ -84,9 +84,8 @@ void recvWithStartEndMarkers() {
 //============
 void sendInterrupt() {
   digitalWrite(D7, HIGH);
-  delay(10); // short delay
+  delay(10);
   digitalWrite(D7, LOW);
-  //Serial.println("Interrupt inviato");
 }
 
 //============
