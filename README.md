@@ -30,13 +30,13 @@ plus:
 Telegram API + Twitter + ThingsBoard
 
 ## Libraries📚
-- ** ESP8266WiFi**
-- ** TimeLib **
-- ** UniversalTelegramBot **
-- ** ArduinoJson **
-- ** NTPClient **
-- ** ThingsBoard **
-- ** SoftwareSerial**
+- **ESP8266WiFi**
+- **TimeLib **
+- **UniversalTelegramBot **
+- **ArduinoJson **
+- **NTPClient **
+- **ThingsBoard **
+- **SoftwareSerial**
 - 
 ## NodeMCU & ThingsBoard
 
