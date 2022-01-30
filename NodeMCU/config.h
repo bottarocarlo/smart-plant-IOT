@@ -7,13 +7,13 @@
    * #define ssid     "Universitari"			// Add wifi name
    * #define password "UniversitarioMatto.2020$"	// Add wifi passowrd
    * 
-   * #define ssid     "iPhone di Lorenzo"      // Add wifi name
-   * #define password "lorenzo123456789"            // Add wifi passowrd
    */
+   #define ssid     "iPhone di Lorenzo"      // Add wifi name
+   #define password "lorenzo123456789"            // Add wifi passowrd
 
 
-#define ssid     "iPhone di Carlo"      // Add wifi name
-#define password "carletto2"            // Add wifi passowrd
+//#define ssid     "iPhone di Carlo"      // Add wifi name
+//#define password "carletto2"            // Add wifi passowrd
 
   // Initialize Telegram BOT
 #define BOTtoken "5044399842:AAHpXZ7vP6ehEIfekzb5lEpmMKgkpkhzxqM"  // replace this with your bot token casadolcecasa
@@ -39,6 +39,7 @@ String sensValue[NUMSENS];
 int sensPos = 0; //Posizione nell'array
 String data;
 String valori;
+String sensors;
 
   // BOT time.
 int bot_delay = 1000;
@@ -69,10 +70,10 @@ float soilHum = 0.00;
 // Values below are just a placeholder
 #ifdef TWITTERINFO  // Obtain these by creating an app @ https://apps.twitter.com/
   int TwitterMaxChars = 280;
-  static char const consumer_key[]    = "3rJR6Kt1n5MvalIVDBhwvoqDy";
-  static char const consumer_sec[]    = "Zr0vD8wZvdRApTB2DeZXQ0VmRWg471lTABEqw4PxEy6LNiZvan";
-  static char const accesstoken[]     = "1204390758117183488-KGcFWM1VrIZwINLb4qfpkQNmXFXSXC";
-  static char const accesstoken_sec[] = "0oZ0NAOODbBbk7TfBWzhMW3NrNlbc90A5uL2mCPzYEO13";
+  static char const consumer_key[]    = "K9BTaM0oUaBZoiferREQNdTiC";
+  static char const consumer_sec[]    = "BopOOQTjI7ZxX9xEa7NM37LXPaBgnu94alwsXwxOwVmz71HcD3";
+  static char const accesstoken[]     = "1471117051100123136-Di6J7EnXHFXNKJyUnVJ07KarPu2XFx";
+  static char const accesstoken_sec[] = "CaiEBh00JzKbzpek1Vm4dRylLwgIKr46zegmzMj56sotT";
 #endif
 
   //THINGSBOARD

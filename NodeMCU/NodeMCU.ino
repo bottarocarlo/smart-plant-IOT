@@ -14,11 +14,6 @@
 #include "time.h"
 #include "ThingsBoard.h"
 #include <ESP8266WiFi.h>
-/*
-  Mandiamo una richiesta UDP
-  idealmente la scheda funziona come un server
-  nel loop manda i pacchetti (rischiamo perdite??) ---------------------------- NEED TEST---------------
-*/
 #include <WiFiUdp.h>
 #include "SoftwareSerial.h"
 #include "config.h"
@@ -120,24 +115,16 @@ void parseData() {      // split the data into its parts
 
 void showParsedData() {
 
-  String sensors = "Temp: " + (String)temp + "\n";
+  sensors = "Temp: " + (String)temp + "\n";
   sensors += "Lux: " + (String)lux + "\n";
   sensors += "Water: " + (String)water + "\n";
   sensors += "SoilHum: " + (String)soilHum + "\n\n";
-  bot.sendMessage(chat_id, sensors, "");
-  sensors += (String)timeClient.getFormattedDate() + "\nLC"; //Add date to modify the tweet from the previous
-
-
-
-  std::string twitterMsg = std::string(sensors.c_str());
-  tcr.tweet(twitterMsg);
-
   /*
     char sensors[TwitterMaxChars];
     sprintf(sensors, "Temp: %.2f,\n Lux: %.2f,\n Water: %.2f,\n SoilHum: %.2f\n", temp, lux, water, soilHum);
     bot.sendMessage(chat_id, sensors, "");
     tcr.tweet(sensors);
-  
+
     bot.sendMessage(chat_id, "Temp: " + (String)temp, "");
     bot.sendMessage(chat_id, "Lux: " + (String)lux, "");
     bot.sendMessage(chat_id, "Water: " + (String)water, "");
@@ -150,9 +137,10 @@ void showParsedData() {
 
 void giveWater() {
   // Pumps works for 2 seconds
-  digitalWrite(D0, HIGH);
+  digitalWrite(D2,LOW);
+  digitalWrite(D7, LOW);
   delay(2000);
-  digitalWrite(D0, LOW);
+  digitalWrite(D2, HIGH);
 }
 
 //============
@@ -160,9 +148,9 @@ void giveWater() {
 void setupOutput() {
   // Declaration GPIO
   pinMode(ledPin, OUTPUT);
-  pinMode(D0, OUTPUT);
+  pinMode(D2, OUTPUT);
   digitalWrite(ledPin, ledState);
-  digitalWrite(D0, LOW);
+  digitalWrite(D2, HIGH);
 }
 
 //============
@@ -257,26 +245,17 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
     if (user_text == "/get_state") {
       int success = 0;
       bot.sendMessage(chat_id, "Working on it, wait few seconds..", "");
+      bot.sendMessage(chat_id, sensors, "");
+      sensors += (String)timeClient.getFormattedDate() + "\n"; //Add date to modify the tweet from the previous
 
-      while (success != 1) {
-        sendInterrupt();
 
-        recvWithStartEndMarkers();
+      std::string twitterMsg = std::string(sensors.c_str());
+      tcr.tweet(twitterMsg);
 
-        if (newData == true) {
-          strcpy(tempChars, receivedChars);
-          parseData();
-          showParsedData();
-          newData = false;
-          success = 1;
-          Serial.println(" ");
-          Serial.println(" ");
-        }
-      }
     }
 
-    if(user_text=="/option"){
-      
+    if (user_text == "/option") {
+
     }
 
     //WATER MANUAL MODE
@@ -369,11 +348,12 @@ void loop() {
     lastTimeforTimer = millis();
   }
 
-  //AUTOMATIC CHECK
+  //CHECK
   if (mode == 1 && millis() > (lastTimeforTimer + 600000)) {
     // check the sooil humidity every 10 minutes
-
-    //CHECKHUMIDITY()
+  if(soilHum < 15){
+    giveWater();
+  }
     lastTimeforTimer = millis();
   }
 
@@ -389,12 +369,28 @@ void loop() {
         return;
       }
     } else {
+      int success = 0;
+      while (success != 1) {
+        sendInterrupt();
+
+        recvWithStartEndMarkers();
+
+        if (newData == true) {
+          strcpy(tempChars, receivedChars);
+          parseData();
+          showParsedData();
+          newData = false;
+          success = 1;
+          Serial.println(" ");
+          Serial.println(" ");
+        }
+      }
       //Send Nudes?
       Serial.println("Sending Data..");
-      tb.sendTelemetryInt("luminosity", random(1,100));
-      tb.sendTelemetryInt("soilHumidity", random(1,100));
-      tb.sendTelemetryInt("waterLevel", random(1,100));
-      tb.sendTelemetryInt("temperature", random(1,100));
+      tb.sendTelemetryInt("luminosity", lux);
+      tb.sendTelemetryInt("soilHumidity", soilHum);
+      tb.sendTelemetryInt("waterLevel", water);
+      tb.sendTelemetryInt("temperature", temp);
       tb.loop();
     }
     exmillis = millis();
