@@ -24,20 +24,20 @@ plus:
 - **1 glass jar** for the water
 - **1 our little plant ina** common plant bought from Orvea
 
-![Photo of varius object]
+![Photo of varius object](img/hardware.jpg)
 
 ## Software 💻
 Telegram API + Twitter + ThingsBoard
 
 ## Libraries📚
-- ** ESP8266WiFi**
-- ** TimeLib **
-- ** UniversalTelegramBot **
-- ** ArduinoJson **
-- ** NTPClient **
-- ** ThingsBoard **
-- ** SoftwareSerial**
-- 
+- **ESP8266WiFi**
+- **TimeLib**
+- **UniversalTelegramBot**
+- **ArduinoJson**
+- **NTPClient**
+- **ThingsBoard**
+- **SoftwareSerial**
+
 ## NodeMCU & ThingsBoard
 
 
