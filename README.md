@@ -2,7 +2,7 @@
 This project was created by [@bottarocarlo](https://github.com/bottarocarlo) and [@cancianilorenzo](https://github.com/cancianilorenzo) for an assignment that we are currently completing for the project Embedded Software for the Internet of Things Unitn course 2021/2022
 Having plants require to take care of them and give them water everyday. But when you have to work around the clock, you don't have the time or just can forget to water your plant. To evoid letting the plants die, we have created a system to water them automatically.
 
-![Image of how the system looks]
+![Image of how the system looks](img/frontfphoto.jpg)
 
 ## Hardware 🛠️
 
@@ -13,7 +13,6 @@ To build this system, we used:
 - **1 [Brightness sensor]** photoresistor💡 
 - **1 [Temperature sensor]** thermistor🌡️ 
 - **1 [Water level sensor]** 🌊
-- **1 [Humidity sensor]** ☁️
 - **1 [3,3-5V water pump]** 💦
 - **1 [5V Relè]**  
 - **7 F-F Dupont cables**
