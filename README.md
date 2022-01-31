@@ -42,7 +42,7 @@ Telegram API + Twitter + ThingsBoard
 
 ## Circuit and wiring
 
-![Fritzing Circuit diagram]
+![Fritzing Circuit diagram](img/circuito.png)
 
 
 
