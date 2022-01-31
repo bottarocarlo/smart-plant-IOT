@@ -1,6 +1,6 @@
 # Smart Plant IoT 🌱
 This project was created by [@bottarocarlo](https://github.com/bottarocarlo) and [@cancianilorenzo](https://github.com/cancianilorenzo) for an assignment that we are currently completing for the project Embedded Software for the Internet of Things Unitn course 2021/2022
-Having plants require to take care of them and give them water everyday. But when you have to work around the clock, you don't have the time or just can forget to water your plant. To evoid letting the plants die, we have created a system to water them automatically.
+Having a plant requires taking care of it, which also includes water them daily. The problem occurs when you have to work around the clock, therefore you don’t have time and can forget to water the plant. To avoid this issue, we have created a system which waters them automatically.
 
 ![Image of how the system looks](img/frontfphoto.jpg)
 
