@@ -91,13 +91,6 @@ void sendInterrupt() {
 
 //============
 
-void updateValues() {
-  water = (water / 100) * 87;
-  //soilHum = (soilHum / 100) * 115;
-
-}
-
-//============
 void parseData() {      
   
   // split the data into its parts
@@ -118,9 +111,9 @@ void parseData() {
     //Serial.println(water);
 
 
-    /*strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-    soilHum = atof(strtokIndx);     // convert this part to an integer
-    //Serial.println(soilHum);*/
+    strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+    water = atof(strtokIndx);     // convert this part to an integer
+    //Serial.println(soilHum);
 
 }
 //============
@@ -148,7 +141,6 @@ void giveWater() {
   digitalWrite(D0, LOW);
   delay(2000);
   digitalWrite(D0, HIGH);
-  updateValues();
 }
 
 
