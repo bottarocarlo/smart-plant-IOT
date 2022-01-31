@@ -10,7 +10,8 @@
 #include <ArduinoJson.h>
 #include <ESP8266HTTPClient.h>
 //https://github.com/taranais/NTPClient
-#include <NTPClient.h> //Per sincronizzare orario, forse c'è un'altra soluzione -----------CHECK-------
+#include <NTPClient.h> 
+// To sinc the clock of the Board 
 #include "time.h"
 #include "ThingsBoard.h"
 #include <ESP8266WiFi.h>
@@ -23,11 +24,11 @@
 X509List cert(TELEGRAM_CERTIFICATE_ROOT);
 #endif
 
-//Per NTPClient
+// Per NTPClient
 const char *ntp_server = "pool.ntp.org";  // time1.google.com, time.nist.gov, pool.ntp.org
 int timezone = +1;
 
-//Per verificare quando effettivamente vengono letti nuovi dati
+// Verify the data read
 boolean newData = false;
 
 //=========== Telegram
@@ -97,8 +98,9 @@ void updateValues() {
 }
 
 //============
-void parseData() {      // split the data into its parts
-
+void parseData() {      
+  
+  // split the data into its parts
   //Serial.println("Entrato nel parsing");
 
   char * strtokIndx; // this is used by strtok() as an index
@@ -137,19 +139,6 @@ void showParsedData() {
   std::string twitterMsg = std::string(sensors.c_str());
   tcr.tweet(twitterMsg);
 
-
-  /*
-    char sensors[TwitterMaxChars];
-    sprintf(sensors, "Temp: %.2f,\n Lux: %.2f,\n Water: %.2f,\n SoilHum: %.2f\n", temp, lux, water, soilHum);
-    bot.sendMessage(chat_id, sensors, "");
-    tcr.tweet(sensors);*/
-
-  /*
-    bot.sendMessage(chat_id, "Temp: " + (String)temp, "");
-    bot.sendMessage(chat_id, "Lux: " + (String)lux, "");
-    bot.sendMessage(chat_id, "Water: " + (String)water, "");
-    bot.sendMessage(chat_id, "SoilHum: " + (String)soilHum, "");
-  */
 
 }
 //============
@@ -296,11 +285,10 @@ void handleNewMessages(int numNewMessages) {  // Handle what happens when you re
       Serial.println(timer);
 
       if (timer > 0) {  // tests if myChar is a digit
-        timer = timer * 10000;
         String setTimer = "Timer is set for " + (String)timer + " hour(s)";
-        //DA MODIFICARE CON 3600000 PER LE ORE!! COS^ SONO MOMENTANEAMENTE SECONDI
         bot.sendMessage(chat_id, setTimer, "");
         lastTimeforTimer = millis();
+        timer = timer * 36000;
       }
       else {
         bot.sendMessage(chat_id, "Mattachione!", "");
@@ -336,7 +324,7 @@ void setup() {
 
 #ifdef ESP8266
   configTime(0, 0, "pool.ntp.org");      // get UTC time via NTP
-  clients.setTrustAnchors(&cert); // Add root certificate for api.telegram.org
+  clients.setTrustAnchors(&cert);        // Add root certificate for api.telegram.org
 #endif
 
 
@@ -404,8 +392,7 @@ void loop() {
           success = 1;
         }
       }
-
-      //Send Nudes? Why not?
+      
       Serial.println("Sending Data..");
       tb.sendTelemetryInt("luminosity", lux);
       tb.sendTelemetryInt("soilHumidity", soilHum);
