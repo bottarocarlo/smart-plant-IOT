@@ -8,7 +8,7 @@ Having plants require to take care of them and give them water everyday. But whe
 
 To build this system, we used:
 - **1 [NodeMCU ESP8266]** IoT board which runs on the ESP8266 Wi-Fi SoC
-- **1 [Arduino]** development board used for analog input
+- **1 [Arduino Uno]** development board used for analog input
 - **1 [Soil Humdity sensor]** 
 - **1 [Brightness sensor]** photoresistor💡 
 - **1 [Temperature sensor]** thermistor🌡️ 
