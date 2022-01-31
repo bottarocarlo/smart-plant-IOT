@@ -108,12 +108,12 @@ void parseData() {
 
   strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
   soilHum = atof(strtokIndx);     // convert this part to an integer
-    //Serial.println(water);
+    //Serial.println(soilHum);
 
 
     strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
     water = atof(strtokIndx);     // convert this part to an integer
-    //Serial.println(soilHum);
+    //Serial.println(water);
 
 }
 //============
