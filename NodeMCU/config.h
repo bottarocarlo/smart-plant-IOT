@@ -60,13 +60,13 @@ float soilHum = 19.00;
 // Values below are just a placeholder
 #ifdef TWITTERINFO  // Obtain these by creating an app @ https://apps.twitter.com/
   int TwitterMaxChars = 280;
-  static char const consumer_key[]    = "K9BTaM0oUaBZoiferREQNdTiC";
-  static char const consumer_sec[]    = "BopOOQTjI7ZxX9xEa7NM37LXPaBgnu94alwsXwxOwVmz71HcD3";
-  static char const accesstoken[]     = "1471117051100123136-Di6J7EnXHFXNKJyUnVJ07KarPu2XFx";
-  static char const accesstoken_sec[] = "CaiEBh00JzKbzpek1Vm4dRylLwgIKr46zegmzMj56sotT";
+  static char const consumer_key[]    = "xxxxxxxxxxxxxx";
+  static char const consumer_sec[]    = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+  static char const accesstoken[]     = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+  static char const accesstoken_sec[] = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 #endif
 
   //THINGSBOARD
-#define thingsboard_TOKEN   "swpDc8FImFeYbSGpwv2y"
+#define thingsboard_TOKEN   "xxxxxxxxxxxxxxxxxxxxxxx"
 #define thingsboard_SERVER  "demo.thingsboard.io"
  
